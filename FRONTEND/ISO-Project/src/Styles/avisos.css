@@ -1,0 +1,146 @@
+.dashboard {
+    max-width: 1200px;
+    width: 100%;
+    margin: 40px auto;
+    padding: 20px;
+    background: rgba(255, 255, 255, 0.95);
+    border-radius: 12px;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+}
+
+.dashboard h2 {
+    color: #2c3e50;
+    margin-bottom: 20px;
+    text-align: center;
+}
+
+.avisos-list {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+    gap: 20px;
+}
+
+.aviso-card {
+    background-color: white;
+    border-radius: 10px;
+    padding: 20px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    transition: transform 0.2s;
+}
+
+.aviso-card:hover {
+    transform: translateY(-5px);
+    cursor: pointer;
+}
+
+.aviso-card h3 {
+    color: #2c3e50;
+    margin-bottom: 10px;
+}
+
+.aviso-status {
+    background-color: #f1c40f;
+    color: white;
+    padding: 5px 10px;
+    border-radius: 5px;
+    display: inline-block;
+    margin-bottom: 10px;
+    font-weight: 500;
+}
+
+.aviso-card p {
+    color: #555;
+    margin-bottom: 10px;
+}
+
+.aviso-image {
+    width: 100%;
+    height: 200px;
+    object-fit: cover;
+    border-radius: 5px;
+    margin-bottom: 10px;
+}
+
+.aviso-actions {
+    display: flex;
+    gap: 10px;
+    justify-content: center;
+}
+
+.aviso-actions button {
+    border-radius: 25px;
+    /* Botones ovalados */
+}
+
+.filters{
+    display: flex;
+    flex-wrap: wrap;
+    gap: 1rem;
+    background: #f9fafb;
+    padding: 1rem;
+    border-radius: 12px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05);
+    margin-bottom: 2rem;
+}
+
+.filters input,
+.filters select {
+    padding: 0.5rem 1rem;
+    border: 1px solid #d1d5db;
+    border-radius: 8px;
+    font-size: 1rem;
+    background: white;
+    transition: border-color 0.3s ease;
+    flex: 1 1 200px;
+}
+
+.filters input:focus,
+.filters select:focus {
+    outline: none;
+    border-color: #3498db;
+    box-shadow: 0 0 0 1px #5ab1ea;
+}
+
+.filters button {
+    background-color: #3498db;
+    color: white;
+    border: none;
+    border-radius: 25px;
+    padding: 0.5rem 1.5rem;
+    font-size: 1rem;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.filters button:hover {
+    background-color: #2980b9;
+}
+
+.aviso-detail{
+    max-width: 1200px;
+    width: 40%;
+    margin: 40px auto;
+    padding: 20px;
+    background: rgba(255, 255, 255, 0.95);
+    border-radius: 12px;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.aviso-detail-image {
+    width: 100%;           
+    height: 200px;         
+    object-fit: cover;     
+    border-radius: 8px;    
+    margin-top: 0.5rem;
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.aviso-detail-info{
+    width: 100%;
+    text-align: left;
+}

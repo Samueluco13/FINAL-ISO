@@ -1,0 +1,33 @@
+.chat-card{
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+    border-radius: 12px;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+    padding: 3px 7px;
+    margin: 5px 0px;
+}
+
+.chat-card:hover {
+    transform: translateY(-5px);
+    cursor: pointer;
+}
+
+.chat-actions button{
+    background-color: red;
+    color: white;
+    border: none;
+    padding: 10px 16px;
+    border-radius: 8px;
+    font-weight: bold;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    transition: background-color 0.3s ease;
+}
+
+.chat-actions button:hover{
+    background-color: #d62828;
+}

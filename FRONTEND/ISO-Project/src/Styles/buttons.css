@@ -1,0 +1,72 @@
+.button-form {
+    width: 100%;
+    padding: 12px 24px;
+    background-color: #3498db;
+    color: white;
+    border: none;
+    border-radius: 25px;
+    font-size: 16px;
+    font-weight: bold;
+    cursor: pointer;
+    transition: background-color 0.3s, transform 0.2s, box-shadow 0.3s;
+}
+
+.button-form:hover {
+    background-color: #2980b9;
+    transform: scale(1.05);
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+}
+
+.button-nav {
+    padding: 12px 24px;
+    background-color: #2ecc71;
+    color: white;
+    border: none;
+    border-radius: 25px;
+    font-size: 16px;
+    font-weight: bold;
+    cursor: pointer;
+    transition: background-color 0.3s, transform 0.2s, box-shadow 0.3s;
+}
+
+.button-nav:hover {
+    background-color: #27ae60;
+    transform: scale(1.05);
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+}
+
+.image-controls{
+    display: flex;
+    justify-content: center;
+    margin: 6px;
+}
+
+.google-container {
+    display: flex;
+    justify-content: center;
+    margin-top: 10px;
+}
+
+.google-button {
+    background-color: white;
+    border: 2px solid #0963f4;
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.google-button:hover {
+    background-color: #f0f0f0;
+    box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.2);
+    transform: scale(1.1);
+}
+
+.google-logo {
+    width: 24px;
+    height: 24px;
+}

@@ -1,0 +1,166 @@
+.form-container,
+.contenido-bienvenida {
+    position: relative;
+    max-width: 500px;
+    margin: 0 auto;
+    padding: 30px;
+    background: rgba(255, 255, 255, 0.95);
+    border-radius: 12px;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+    text-align: center;
+}
+
+.form-container h2,
+.contenido-bienvenida h2 {
+    margin-bottom: 20px;
+    color: #2c3e50;
+}
+
+.form-group {
+    margin-bottom: 20px;
+    text-align: left;
+}
+
+.form-group label {
+    display: block;
+    margin-bottom: 8px;
+    font-weight: 500;
+    color: #34495e;
+}
+
+.form-group input,
+.form-group select {
+    width: 100%;
+    padding: 12px;
+    border: 1px solid #dfe6e9;
+    border-radius: 5px;
+    font-size: 1em;
+    background-color: white;
+    color: black;
+}
+
+.form-group.checkbox {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin: 20px 0;
+    justify-content: flex-start;
+    text-align: center;
+    flex-direction: row-reverse;
+    align-content: space-around;
+}
+
+.form-group.checkbox label {
+    margin-bottom: 0;
+}
+
+.btn-login{
+    display: flex;
+    justify-content: center;
+    margin-bottom: 20px;
+    text-align: left;
+}
+
+.login-directions{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.error {
+    padding: 15px;
+    margin-bottom: 20px;
+    background-color: #e74c3c;
+    color: white;
+    border-radius: 5px;
+    text-align: center;
+}
+
+.link {
+    margin-top: 15px;
+    text-align: center;
+}
+
+.link a {
+    color: #3498db;
+    text-decoration: none;
+    cursor: pointer;
+}
+
+.link a:hover {
+    text-decoration: underline;
+}
+
+.user-rol {
+    color: #2c3e50;
+    background-color: white;
+    border-radius: 6px;
+    font-size: 14px;
+    padding: 10px;
+    width: 100%;
+    border: 1px solid #ccc;
+}
+
+.contenido-bienvenida p {
+    font-size: 20px;
+    margin-bottom: 40px;
+    max-width: 700px;
+    color: #2c3e50;
+    /* Cambiamos el color a uno más oscuro */
+}
+
+.acciones-bienvenida {
+    display: flex;
+    justify-content: center;
+    gap: 20px;
+}
+
+@keyframes fadeInFromTop {
+    from {
+        opacity: 0;
+        transform: translateY(-50px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.contenido-bienvenida h2 {
+    color: #2c3e50;
+    /* Cambiamos el color a uno más oscuro */
+    font-size: 36px;
+    font-weight: 700;
+    margin-bottom: 20px;
+    opacity: 0;
+    animation: fadeInFromTop 1s ease-out forwards;
+}
+
+.contenido-bienvenida p {
+    opacity: 0;
+    animation: fadeInFromTop 1s ease-out forwards;
+}
+
+.acciones-bienvenida {
+    opacity: 0;
+    animation: fadeInFromTop 1s ease-out forwards;
+}
+
+.auth-container {
+    background: white;
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    width: 100%;
+    max-width: 400px;
+    margin: 0 auto;
+}
+
+.view-password{
+    position: absolute;
+    right: 8px;
+    top: 50%;
+    transform: translateY(-130%);
+    cursor: pointer;
+    color: #555;
+}
