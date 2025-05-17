@@ -2,14 +2,25 @@ import React, { useState, useContext } from "react";
 import { useNavigate } from "react-router-dom";
 import { AuthContext } from "../context/AuthContext.jsx";
 import NotificationBell from "./NotificationBell.jsx";
+import { NotificationCard } from "./NotificationCard.jsx";
 import "../styles/header.css";
 
 const Header = () => {
   const { currentUser, logout } = useContext(AuthContext);
   const [isMenuOpen, setIsMenuOpen] = useState(false);
+  const [isNotificationOpen, setIsNotificationOpen] = useState(false);
+  const [count, setCount] = useState(1);
   const navigate = useNavigate();
 
-  const toggleMenu = () => setIsMenuOpen(!isMenuOpen);
+  const toggleMenu = () => {
+    setIsNotificationOpen(false);
+    setIsMenuOpen(!isMenuOpen);
+  }
+
+  const toggleNotification = () => {
+    setIsMenuOpen(false);
+    setIsNotificationOpen(!isNotificationOpen);
+  }
 
   const handleLogout = () => {
     logout();
@@ -29,7 +40,6 @@ const Header = () => {
             </button>
           ) : (
             <>
-              {/* <FaBell className="noti-bell" /> */}
               {currentUser.tipo === "propietario" && (
                 <button className="btn create-aviso-btn" onClick={() => navigate("/crear-aviso")}>
                   Crear Aviso
@@ -86,7 +96,18 @@ const Header = () => {
                   </ul>
                 )}
               </div>
-              <NotificationBell count={0} />
+              <NotificationBell onClick={toggleNotification} count={count} />
+              {isNotificationOpen && (
+                <ul className="notification-dropdown">
+                  {count === 0 ? (
+                    <p>No tienes notificaciones</p>
+                  ): (
+                    <li>
+                      <NotificationCard/>
+                    </li>
+                  )}
+                </ul>
+              )}
             </>
           )}
         </nav>

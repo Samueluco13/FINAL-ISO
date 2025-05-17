@@ -97,7 +97,6 @@ const CreateAviso = () => {
       visible: false
     }
 
-
     if (nuevoAviso){
       console.log(nuevoAviso)
       try{

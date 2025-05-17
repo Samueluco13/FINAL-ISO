@@ -1,0 +1,81 @@
+.notification-card {
+    top: 0;
+    width: 100%;
+    /* height: 100px; */
+    background-color: white;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    display: flex;
+    align-items: center;
+    padding: 10px;
+    /* margin-bottom: 10px; */
+    border-bottom: 1px solid #5c5c5cbd;
+}
+
+.notification-card:hover {
+    cursor: pointer;
+    transform: translateY(-2px);
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); 
+}
+
+.notification-card:first-child {
+    border-top-left-radius: 5px;
+    border-top-right-radius: 5px;
+}
+
+.notification-card:last-child {
+    border-bottom: none;
+    border-bottom-left-radius: 5px;
+    border-bottom-right-radius: 5px;
+}
+
+.noti-actions {
+    display: flex;
+    gap: 10px;
+    justify-content: center;
+}
+.noti-actions button{
+    height: 28px;
+    width: 28px;
+    border-radius: 5px;
+    background-color: white;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 0;
+    color: #2c3e50;
+    border-color: #2c3e50;
+}
+
+.noti-actions button:hover{
+    background-color: rgb(246, 246, 246);
+}
+
+.btn.seen-noti:hover{
+    color: green;
+    border-color: green;
+}
+
+.btn.delete-noti:hover{
+    color: rgb(255, 66, 66);
+    border-color: rgb(255, 66, 66);
+}
+
+.btn.archive-noti:hover{
+    color: #3498db;
+    border-color: #3498db;
+}
+
+.multiline-text{
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    line-clamp: 2;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+/* .multiline-text p{
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+} */
