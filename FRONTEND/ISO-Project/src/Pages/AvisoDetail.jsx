@@ -32,37 +32,37 @@ const AvisoDetail = () => {
     navigate(`/reportar-aviso?nombre=${nombre}`);
   };
 
-  // const handleContact = () => {
-  //   const chats = JSON.parse(localStorage.getItem("chats")) || [];
+  const handleContact = () => {
+    const chats = JSON.parse(localStorage.getItem("chats")) || [];
 
-  //   const chatExistente = chats.find((chat) => //Encontrar el chat que:
-  //       chat.avisoId === id && //Coincida el id del aviso del chat, con el id del aviso en el que me encuentro
-  //       chat.participantes.includes(currentUser.id) && //Además los id de los participantes deben coincidir con el propio...
-  //       chat.participantes.includes(aviso.propietarioId) //Y el del dueño del aviso
-  //   );
-  //   console.log(localStorage.getItem("chats"));
-  //   console.log("Current USER ID: ", currentUser.id)
-  //   console.log("Propietario id: ", aviso.propietarioId)
+    const chatExistente = chats.find((chat) => //Encontrar el chat que:
+        chat.avisoId === id && //Coincida el id del aviso del chat, con el id del aviso en el que me encuentro
+        chat.participantes.includes(currentUser.id) && //Además los id de los participantes deben coincidir con el propio...
+        chat.participantes.includes(aviso.propietarioId) //Y el del dueño del aviso
+    );
+    console.log(localStorage.getItem("chats"));
+    console.log("Current USER ID: ", currentUser.id)
+    console.log("Propietario id: ", aviso.propietarioId)
     
 
 
-  //   if(chatExistente){ //Si el chat existe
-  //     navigate(`/chat-aviso?id=${chatExistente.id}`); //Me dirije allá
-  //     console.log("Id del chat que EXISTE: ", chatExistente.id)
-  //   }else{
-  //     const nuevoChat = { //Si no existe, lo crea
-  //       id: Date.now().toString(),
-  //       avisoId: id,
-  //       tituloAviso: aviso.nombre,
-  //       participantes: [currentUser.id, aviso.idUsuarioPropietario],
-  //       msg: []
-  //     }
-  //     const nuevosChats = [...chats, nuevoChat]; //Después de crearlo, lo junta con los demás que tenga el usuario
-  //     localStorage.setItem("chats", JSON.stringify(nuevosChats)) //Lo guarda en el localStorage
-  //     navigate(`/chat-aviso?id=${nuevoChat.id}`); //Me dirige al chat recien creado
-  //     console.log("Id del chat que NO EXISTE: ", nuevoChat.id)
-  //   }
-  // }
+    if(chatExistente){ //Si el chat existe
+      navigate(`/chat-aviso?id=${chatExistente.id}`); //Me dirije allá
+      console.log("Id del chat que EXISTE: ", chatExistente.id)
+    }else{
+      const nuevoChat = { //Si no existe, lo crea
+        id: Date.now().toString(),
+        avisoId: id,
+        tituloAviso: aviso.nombre,
+        participantes: [currentUser.id, aviso.idUsuarioPropietario],
+        msg: []
+      }
+      const nuevosChats = [...chats, nuevoChat]; //Después de crearlo, lo junta con los demás que tenga el usuario
+      localStorage.setItem("chats", JSON.stringify(nuevosChats)) //Lo guarda en el localStorage
+      navigate(`/chat-aviso?id=${nuevoChat.id}`); //Me dirige al chat recien creado
+      console.log("Id del chat que NO EXISTE: ", nuevoChat.id)
+    }
+  }
 
   if (!aviso) return null;
 
@@ -117,9 +117,9 @@ const AvisoDetail = () => {
             {currentUser && (currentUser.tipo === "interesado" || currentUser.tipo === "propietario")
             && aviso.visible === true && aviso.idUsuarioPropietario !== currentUser.id && (
                 <>
-                  {/* <button className="btn btn-primary" onClick={handleContact}>
+                  <button className="btn btn-primary" onClick={handleContact}>
                     Contactar
-                  </button> */}
+                  </button>
                   <button className="btn btn-danger" onClick={handleReport}>
                     Reportar Aviso
                   </button>

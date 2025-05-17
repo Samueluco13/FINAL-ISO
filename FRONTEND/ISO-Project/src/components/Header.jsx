@@ -1,6 +1,7 @@
 import React, { useState, useContext } from "react";
 import { useNavigate } from "react-router-dom";
 import { AuthContext } from "../context/AuthContext.jsx";
+import NotificationBell from "./NotificationBell.jsx";
 import "../styles/header.css";
 
 const Header = () => {
@@ -28,6 +29,7 @@ const Header = () => {
             </button>
           ) : (
             <>
+              {/* <FaBell className="noti-bell" /> */}
               {currentUser.tipo === "propietario" && (
                 <button className="btn create-aviso-btn" onClick={() => navigate("/crear-aviso")}>
                   Crear Aviso
@@ -51,9 +53,9 @@ const Header = () => {
                     )}
                     {(currentUser.tipo === "propietario" || currentUser.tipo === "interesado") && (
                       <>
-                        {/* <li>
+                        <li>
                           <button onClick={() => navigate("/chats-list")}>Chats</button>
-                        </li> */}
+                        </li>
                         <li>
                           <button onClick={() => navigate("/actualizar-perfil")}>Actualizar Perfil</button>
                         </li>
@@ -84,6 +86,7 @@ const Header = () => {
                   </ul>
                 )}
               </div>
+              <NotificationBell count={0} />
             </>
           )}
         </nav>

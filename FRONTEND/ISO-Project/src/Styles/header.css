@@ -13,7 +13,6 @@
     display: flex;
     justify-content: space-between;
     align-items: center;
-    
 }
 
 .header-title {
@@ -91,4 +90,42 @@
     object-fit: cover;
     border: 1px solid #ddd;
     margin-left: 1px;
+}
+
+.noti-container{
+    margin-top: 8px;
+    margin-left: 10px;
+    position: relative;
+    display: inline-block;
+}
+
+.noti-container:hover{
+    cursor: pointer;
+}
+
+.noti-bell{
+    width: 20px;
+    height: 20px;
+    color: white;
+}
+
+.noti-bell:hover{
+    cursor: pointer;
+    color: rgb(246, 246, 246);
+}
+
+.noti-badge {
+    position: absolute;
+    top: -7px;
+    right: -7px;
+    background-color: red;
+    color: white;
+    font-size: 10px;
+    font-weight: bold;
+    border-radius: 50%;
+    height: 20px;
+    width: 20px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
 }
