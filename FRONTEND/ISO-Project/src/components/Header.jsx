@@ -1,16 +1,37 @@
-import React, { useState, useContext } from "react";
+import React, { useState, useContext, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { AuthContext } from "../context/AuthContext.jsx";
 import NotificationBell from "./NotificationBell.jsx";
 import { NotificationCard } from "./NotificationCard.jsx";
+import {ArrendamientosService} from "../services/ArrendamientoService.js";
 import "../styles/header.css";
 
 const Header = () => {
   const { currentUser, logout } = useContext(AuthContext);
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [isNotificationOpen, setIsNotificationOpen] = useState(false);
-  const [count, setCount] = useState(1);
+  const [notifications, setNotifications] = useState([]);
+  const [count, setCount] = useState(0);
   const navigate = useNavigate();
+
+
+  useEffect(() => {
+    const mostrarNotis = async () => {
+      try {
+        const notis = await ArrendamientosService.listNotifications(currentUser.userName);
+        console.log("Lo que devuelve: ", notis);
+        console.log("Notificaciones: ", notis.data);
+        setCount(notis.data.length);
+        setNotifications(notis.data);
+      } catch (error) {
+        console.log(error.notis?.data);
+        console.log(error.message);
+      }
+    }
+    mostrarNotis()
+  },[navigate, currentUser]);
+
+
 
   const toggleMenu = () => {
     setIsNotificationOpen(false);
@@ -99,12 +120,16 @@ const Header = () => {
               <NotificationBell onClick={toggleNotification} count={count} />
               {isNotificationOpen && (
                 <ul className="notification-dropdown">
-                  {count === 0 ? (
+                  {notifications.length === 0 ? (
                     <p>No tienes notificaciones</p>
-                  ): (
-                    <li>
-                      <NotificationCard/>
-                    </li>
+                  ) : (
+                    notifications.map((notification) => (
+                      <li key={notification.id} className="noti-item">
+                        <NotificationCard
+                        notification={notification}
+                        />
+                      </li>
+                    ))
                   )}
                 </ul>
               )}

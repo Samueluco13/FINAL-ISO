@@ -5,27 +5,47 @@
     background-color: white;
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
     display: flex;
-    align-items: center;
+    /* align-items: center; */
+    flex-direction: column;
+    /* justify-content: space-between; */
     padding: 10px;
     /* margin-bottom: 10px; */
-    border-bottom: 1px solid #5c5c5cbd;
+    border-top: 1px solid #5c5c5cbd;
+}
+.title-noti{
+    padding: 0;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.title-noti h3{
+    margin: 0;
+    font-size: 16px;
+    font-weight: 600;
+    color: #2c3e50;
+}
+
+.title-noti p{
+    font-size: 29px;
+    color: #7f8c8d;
+    /* margin-left: 10px; */
+}
+
+.info-noti{
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.info-noti p{
+    padding-right: 6px;
 }
 
 .notification-card:hover {
     cursor: pointer;
     transform: translateY(-2px);
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); 
-}
-
-.notification-card:first-child {
-    border-top-left-radius: 5px;
-    border-top-right-radius: 5px;
-}
-
-.notification-card:last-child {
-    border-bottom: none;
-    border-bottom-left-radius: 5px;
-    border-bottom-right-radius: 5px;
 }
 
 .noti-actions {
@@ -65,7 +85,7 @@
     border-color: #3498db;
 }
 
-.multiline-text{
+/* .multiline-text{
     display: -webkit-box;
     -webkit-line-clamp: 2;
     line-clamp: 2;
@@ -74,7 +94,7 @@
     text-overflow: ellipsis;
 }
 
-/* .multiline-text p{
+.multiline-text p{
     white-space: nowrap;
     overflow: hidden;
     text-overflow: ellipsis;

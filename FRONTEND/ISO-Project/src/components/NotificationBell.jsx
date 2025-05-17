@@ -1,5 +1,4 @@
 import { FaBell } from 'react-icons/fa';
-// import './NotificationBell.css'; // Asegúrate de importar los estilos
 
 const NotificationBell = ({ count, onClick }) => {
     return (

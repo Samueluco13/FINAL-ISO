@@ -130,20 +130,32 @@
     justify-content: center;
 }
 
+/* .noti-item{
+    border-bottom: 1px solid #5c5c5cbd;
+} */
+
+.noti-item:last-child {
+    border-bottom: none;
+    border-bottom-left-radius: 5px;
+    border-bottom-right-radius: 5px;
+}
+
 .notification-dropdown{
     position: absolute;
     top: 60px;
-    right: 40px;
+    right: 160px;
     background-color: white;
     border-radius: 5px;
     box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
     list-style: none;
-    width: 486.65px;
+    width: 495px;
     z-index: 1000;
+    max-height: 254.4px;
+    overflow-y: auto;
 }
 
 .notification-dropdown p {
-    padding: 10px;
+    /* padding: 10px; */
     margin: 0;
     font-size: 14px;
     color: #2c3e50;

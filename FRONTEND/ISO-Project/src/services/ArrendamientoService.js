@@ -142,5 +142,11 @@ export class ArrendamientosService {
         return axios.get(`${backend}/LISTAR-PROPIEDADES-ESPERA`);
     }
 
+
+    //METODOS DE NOTIFICACIONES
+    static listNotifications(userName){
+        return axios.post(`${backend}/LISTAR-NOTIFICACIONES/${userName}`);
+    }
+
     
 }
