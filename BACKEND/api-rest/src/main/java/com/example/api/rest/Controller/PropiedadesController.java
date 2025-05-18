@@ -16,6 +16,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.example.api.rest.Model.Comentarios;
+import com.example.api.rest.Model.Mensajes;
 import com.example.api.rest.Model.PropiedadesModel;
 import com.example.api.rest.Model.ReportePublicacionModel;
 import com.example.api.rest.Service.IPropiedadesService;
@@ -94,5 +95,16 @@ public class PropiedadesController {
     public ResponseEntity<String> aprobarReportes(@PathVariable ObjectId idReporte, @RequestBody ReportePublicacionModel desicion){
         propiedadesService.validarReporte(idReporte, desicion);
         return new ResponseEntity<String>("Desicion guardada con exito", HttpStatus.OK);
+    }
+
+    @PostMapping("/CREAR-MENSAJE")
+    public ResponseEntity<String> crearMensaje(@RequestBody PropiedadesModel propiedadConMensajes){
+        propiedadesService.mensajes(propiedadConMensajes);
+        return new ResponseEntity<String>("Mensaje enviado", HttpStatus.OK);
+    }
+
+    @PostMapping("/LISTAR-MENSAJES/{idUsuarioDestinatario}")
+    public ResponseEntity<List<Mensajes>> listarComentarios(@PathVariable ObjectId idUsuarioDestinatario){
+        return new ResponseEntity<List<Mensajes>>(propiedadesService.listarMensajes(idUsuarioDestinatario), HttpStatus.OK);
     }
 }

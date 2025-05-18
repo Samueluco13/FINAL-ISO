@@ -12,6 +12,7 @@ import com.example.api.rest.Excepciones.PropiedadSinComentarios;
 import com.example.api.rest.Excepciones.PropiedadSinReportes;
 import com.example.api.rest.Excepciones.PropiedadYaExistente;
 import com.example.api.rest.Excepciones.PropiedadesCondicionesInvalida;
+import com.example.api.rest.Excepciones.UsuarioSinMensajes;
 import com.example.api.rest.Excepciones.ValorCostoInvalido;
 
 @ControllerAdvice
@@ -55,4 +56,10 @@ public class PropiedadadesControllerAdvice {
     public ResponseEntity<String> condicionesInvalida(PropiedadesCondicionesInvalida mensaje){
         return new ResponseEntity<String>(mensaje.getMessage(), HttpStatus.UNAUTHORIZED);
     }
+
+    @ExceptionHandler(UsuarioSinMensajes.class)
+    public ResponseEntity<String> usuarioSinMensajes(UsuarioSinMensajes mensaje){
+        return new ResponseEntity<String>(mensaje.getMessage(), HttpStatus.UNAUTHORIZED);
+    }
+    
 }

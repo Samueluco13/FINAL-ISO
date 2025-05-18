@@ -5,6 +5,7 @@ import java.util.Optional;
 
 import org.bson.types.ObjectId;
 import org.springframework.data.mongodb.repository.MongoRepository;
+import org.springframework.data.mongodb.repository.Query;
 
 import com.example.api.rest.Model.PropiedadesModel;
 import com.example.api.rest.Model.ENUM.enumsDisponibilidad;
@@ -16,5 +17,7 @@ public interface IPropiedadesRepository extends MongoRepository<PropiedadesModel
     List<PropiedadesModel> findByVisible(Boolean visibilidad);
     List<PropiedadesModel> findByDisponibilidad(enumsDisponibilidad disponibilidad);
     List<PropiedadesModel> findByEstado(enumsEstadoPropiedad estado);
+    @Query("{ 'mensajeria.idUsuarioDestinatario': ?0 }")
+    Optional<PropiedadesModel> findByIdUsuarioRemitente(ObjectId idUsuarioDestinatario);
 
 }
