@@ -148,7 +148,7 @@ const EditAviso = () => {
         </div>
         <div className="form-group">
           <label htmlFor="nombre">Título</label>
-          <input type="text" id="nombre" name="nombre" value={aviso.nombre} onChange={handleChange} required />
+          <input type="text" id="nombre" name="nombre" value={aviso.nombre} onChange={handleChange} disabled />
         </div>
         <div className="form-group">
           <label htmlFor="descripcion">Descripción</label>
@@ -165,18 +165,6 @@ const EditAviso = () => {
             required
           />
         </div>
-        {/* <div className="form-group">
-          <label htmlFor="habitaciones">Habitaciones</label>
-          <input type="number" id="habitaciones" name="habitaciones" value={aviso.habitaciones} onChange={handleChange} />
-        </div>
-        <div className="form-group">
-          <label htmlFor="area">Área (m²)</label>
-          <input type="number" id="area" name="area" value={aviso.area} onChange={handleChange} />
-        </div>
-        <div className="form-group">
-          <label htmlFor="ubicacion">Ubicación</label>
-          <input type="text" id="ubicacion" name="ubicacion" value={aviso.ubicacion} onChange={handleChange} required/>
-        </div> */}
         <div className="form-group">
           <label htmlFor="condiciones">Condiciones</label>
           <textarea id="condiciones" name="condiciones" value={aviso.condiciones} onChange={handleChange} onPaste={handlePaste} required/>

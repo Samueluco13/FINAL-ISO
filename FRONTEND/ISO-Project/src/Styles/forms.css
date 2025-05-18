@@ -42,3 +42,12 @@
     justify-content: center;
     gap: 10px;
 }
+
+.ubicacion{
+    display: flex;
+    /* justify-content: space-between; */
+}
+
+.ubicacion select{
+    width: 20%;
+}

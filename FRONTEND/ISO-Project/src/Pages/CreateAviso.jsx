@@ -1,4 +1,4 @@
-import React, { useState, useContext } from "react";
+import React, { useState, useContext, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { AuthContext } from "../context/AuthContext.jsx";
 import ButtonForm from "../components/ButtonForm.jsx";
@@ -12,21 +12,38 @@ const CreateAviso = () => {
   const navigate = useNavigate();
   const [error, setError] =  useState("");
   const [confirmationPopup, setConfirmationPopup] = useState(false);
+  const [ubicacion, setUbicacion] = useState({
+    tipo: "",
+    casa: "",
+    torre: "",
+    apartamento: "",
+    parqueadero: "",
+    bodega: ""
+  })
   const [aviso, setAviso] = useState({
     nombre: "",
-    tipo: "casa",
+    tipo: ubicacion.tipo,
     descripcion: "",
     costo: 0,
-    // habitaciones: "",
-    // area: "",
-    // ubicacion: "",
     condiciones: "",
     imagenes: [],
   });
 
+  useEffect(() => {
+    //Toma cada los select para crear el titulo, y elimina vacios
+    const partesNombre = [ubicacion.tipo, ubicacion.casa, ubicacion.apartamento, ubicacion.torre, ubicacion.parqueadero, ubicacion.bodega,].filter(Boolean);
+
+    setAviso(prev => ({
+      ...prev,
+      nombre: partesNombre.join(" ") //Pone en el nombre del aviso lo que se halla tomado de los inputs separando con espacios
+    }));
+  }, [ubicacion]);
+
 
   const handleChange = (e) => {
     const { name, value } = e.target;
+    
+      setUbicacion((prev) => ({ ...prev, [name]: value }));
     //Para que no exceda los 500 caracteres
     if ((name === "descripcion" || name === "condiciones") && (value.length > 500)){
       setError("No puedes exeder los 500 caracteres")
@@ -112,9 +129,6 @@ const CreateAviso = () => {
     } else {
       setError("No hay fokin aviso para crear");
     }
-    // const avisos = JSON.parse(localStorage.getItem("avisos")) || [];
-    // avisos.push(newAviso);
-    // localStorage.setItem("avisos", JSON.stringify(avisos));
 
     // const historial = JSON.parse(localStorage.getItem("historial")) || [];
     // historial.push({
@@ -128,6 +142,14 @@ const CreateAviso = () => {
     // localStorage.setItem("historial", JSON.stringify(historial));
   };
 
+  const disableSelect = () => {
+      if((ubicacion.tipo !== "apartamento") && (ubicacion.tipo !== "habitacion")){
+        return true;
+      }
+      else return false;
+  }
+
+
   return (
     <div className="form-container">
       <h2>Crear Aviso</h2>
@@ -135,7 +157,8 @@ const CreateAviso = () => {
       <form onSubmit={handleSubmit}>
         <div className="form-group">
           <label htmlFor="tipo">Tipo de Espacio</label>
-          <select id="tipo" name="tipo" value={aviso.tipo} onChange={handleChange} >
+          <select id="tipo" name="tipo" value={ubicacion.tipo} onChange={handleChange} >
+            <option value=""></option>
             <option value="casa">Casa</option>
             <option value="apartamento">Apartamento</option>
             <option value="habitacion">Habitación</option>
@@ -143,9 +166,93 @@ const CreateAviso = () => {
             <option value="bodega">Bodega</option>
           </select>
         </div>
-        <div className="form-group">
+        {/* <div className="form-group">
           <label htmlFor="nombre">Título</label>
           <input type="text" id="nombre" name="nombre" value={aviso.nombre} onChange={handleChange} required/>
+        </div> */}
+        <div className="form-group"> 
+          <label htmlFor="casa">Numero de casa</label>
+          <select type="text" id="casa" name="casa" value={ubicacion.casa} onChange={handleChange} disabled={ubicacion.tipo !== "casa"} >
+            <option value=""></option>
+            <option value="1">Casa 1</option>
+            <option value="2">Casa 2</option>
+            <option value="3">Casa 3</option>
+            <option value="4">Casa 4</option>
+            <option value="5">Casa 5</option>
+            <option value="6">Casa 6</option>
+            <option value="7">Casa 7</option>
+            <option value="8">Casa 8</option>
+            <option value="9">Casa 9</option>
+            <option value="10">Casa 10</option>
+          </select>
+        </div>
+        <div className="form-group">
+          <label htmlFor="torre">Torre</label>
+          <select type="text" id="torre" name="torre" value={ubicacion.torre} onChange={handleChange} disabled={disableSelect()} >
+            <option value=""></option>
+            <option value="A">A</option>
+            <option value="B">B</option>
+            <option value="C">C</option>
+            <option value="D">D</option>
+            <option value="E">E</option>
+            <option value="F">F</option>
+            <option value="G">G</option>
+            <option value="H">H</option>
+          </select>
+        </div>
+        <div className="form-group"> 
+          <label htmlFor="apartamento">Numero de Apartamento</label>
+          <select type="text" id="apartamento" name="apartamento" value={ubicacion.apartamento} onChange={handleChange} disabled={disableSelect()} >
+            <option value=""></option>
+            <option value="101">101</option>
+            <option value="102">102</option>
+            <option value="103">103</option>
+            <option value="104">104</option>
+            <option value="201">201</option>
+            <option value="202">202</option>
+            <option value="203">203</option>
+            <option value="204">204</option>
+            <option value="301">301</option>
+            <option value="302">302</option>
+            <option value="303">303</option>
+            <option value="304">304</option>
+            <option value="401">401</option>
+            <option value="402">402</option>
+            <option value="403">403</option>
+            <option value="404">404</option>
+          </select>
+        </div>
+        <div className="form-group"> 
+          <label htmlFor="parqueadero">Parqueadero</label>
+          <select type="text" id="parqueadero" name="parqueadero" value={ubicacion.parqueadero} onChange={handleChange}  disabled={ubicacion.tipo !== "parqueadero"} >
+            <option value=""></option>
+            <option value="1">Parqueadero 1</option>
+            <option value="2">Parqueadero 2</option>
+            <option value="3">Parqueadero 3</option>
+            <option value="4">Parqueadero 4</option>
+            <option value="5">Parqueadero 5</option>
+            <option value="6">Parqueadero 6</option>
+            <option value="7">Parqueadero 7</option>
+            <option value="8">Parqueadero 8</option>
+            <option value="9">Parqueadero 9</option>
+            <option value="10">Parqueadero 10</option>
+          </select>
+        </div>
+        <div className="form-group"> 
+          <label htmlFor="bodega">Bodega</label>
+          <select type="text" id="bodega" name="bodega" value={ubicacion.bodega} onChange={handleChange} disabled={ubicacion.tipo !== "bodega"} >
+            <option value=""></option>
+            <option value="1">Bodega 1</option>
+            <option value="2">Bodega 2</option>
+            <option value="3">Bodega 3</option>
+            <option value="4">Bodega 4</option>
+            <option value="5">Bodega 5</option>
+            <option value="6">Bodega 6</option>
+            <option value="7">Bodega 7</option>
+            <option value="8">Bodega 8</option>
+            <option value="9">Bodega 9</option>
+            <option value="10">Bodega 10</option>
+          </select>
         </div>
         <div className="form-group">
           <label htmlFor="descripcion">Descripción</label>
