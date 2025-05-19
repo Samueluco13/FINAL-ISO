@@ -23,14 +23,17 @@ public class AcuerdoModel {
     @Id
     @JsonSerialize(using = ToStringSerializer.class)
     private ObjectId id;
-    private PropiedadesModel idPropiedad;
-    private UsuarioModel idUsuarioInteresado;
-    private String userNameUsuarioInteresado;
+    @JsonSerialize(using = ToStringSerializer.class)
+    private ObjectId idPropiedad;
+    @JsonSerialize(using = ToStringSerializer.class)
+    private ObjectId idUsuarioInteresado;
+    private String userNameUsuario;
     private String nombrePropiedad;
     private Date fechaInicio;
     private Date fechaFin;
     private enumsEstadoAcuerdo estado;
     private String razonCancelacion;
+    private List<EventosHistorial> eventosHistorial = new ArrayList<>();
     private List<CalificacionEspacio> calificacionEspacio = new ArrayList<>();
     private List<CalificacionArrendatario> calificacionArrendatario = new ArrayList<>();   
 }

@@ -1,10 +1,12 @@
 package com.example.api.rest.Service;
 
 import com.example.api.rest.Model.AcuerdoModel;
-import com.example.api.rest.Model.PropiedadesModel;
+import org.bson.types.ObjectId;
+
+
 
 public interface IAcuerdoService {
     public String crearAcuerdo(AcuerdoModel acuerdo);
-    public AcuerdoModel actualizarAcuerdo(String nombrePropiedad, AcuerdoModel acuerdo);
-    public PropiedadesModel buscarPropiedadAcuerdo(String nombrePropiedad);
+    public AcuerdoModel actualizarAcuerdoPropiedad(ObjectId id, AcuerdoModel acuerdo);
+    public String cancelarAcuerdoPropiedad(ObjectId id, String razonCancelacion);
 }
