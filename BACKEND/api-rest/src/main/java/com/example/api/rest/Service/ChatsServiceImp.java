@@ -65,5 +65,18 @@ public class ChatsServiceImp implements IChatsService{
         return chats;
     }
 
+    @Override
+    public ChatsModel crearChat(ObjectId idUsuarioPropietario, ChatsModel chat) {
+        UsuarioModel usuarioEncontrado = buscarUsuario(idUsuarioPropietario);
+        chat.setNombreUsuarioDestinatario(usuarioEncontrado.getNombre());
+        
+        ChatsModel chatEncontrado = buscarChat(chat.getNombreUsuarioDestinatario(), chat.getNombreUsuarioRemitente());
+        if(chatEncontrado != null){
+            return chatEncontrado;
+        }
+        chatsRepositorio.save(chat);
+        return chat;
+    }
+
 
 }
