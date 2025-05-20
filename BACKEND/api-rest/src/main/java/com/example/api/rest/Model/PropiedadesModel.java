@@ -40,6 +40,5 @@ public class PropiedadesModel {
     private Integer promedioCalificacion;
     private Date fechaPublicacion;
     private List<Comentarios> comentarios = new ArrayList<>();
-    private List<Mensajes> mensajeria = new ArrayList<>();
     private Boolean visible;
 }   

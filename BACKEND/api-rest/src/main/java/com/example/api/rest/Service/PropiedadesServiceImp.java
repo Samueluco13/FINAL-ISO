@@ -15,16 +15,15 @@ import com.example.api.rest.Excepciones.PropiedadNoEncontrada;
 import com.example.api.rest.Excepciones.PropiedadSinComentarios;
 import com.example.api.rest.Excepciones.PropiedadSinReportes;
 import com.example.api.rest.Excepciones.PropiedadYaExistente;
-import com.example.api.rest.Excepciones.UsuarioSinMensajes;
 import com.example.api.rest.Excepciones.ValorCostoInvalido;
 import com.example.api.rest.Model.Comentarios;
-import com.example.api.rest.Model.Mensajes;
 import com.example.api.rest.Model.NotificacionesModel;
 import com.example.api.rest.Model.PropiedadesModel;
 import com.example.api.rest.Model.ReportePublicacionModel;
 import com.example.api.rest.Model.UsuarioModel;
 import com.example.api.rest.Model.ENUM.enumsEstadoPropiedad;
 import com.example.api.rest.Model.ENUM.enumsNotificaciones;
+import com.example.api.rest.Repository.IMensajeriaRepository;
 import com.example.api.rest.Repository.INotificacionesRepositorty;
 import com.example.api.rest.Repository.IPropiedadesRepository;
 import com.example.api.rest.Repository.IReportePublicacionRepository;
@@ -36,7 +35,7 @@ public class PropiedadesServiceImp implements IPropiedadesService {
     @Autowired IReportePublicacionRepository reportePublicacionRepositorio;
     @Autowired IUsuarioRepository usuarioRepositorio;
     @Autowired INotificacionesRepositorty notificacionesRepositorio;
-
+    @Autowired IMensajeriaRepository mensajeriaRepositorio;
 
     @Override
     public UsuarioModel buscarUsuarioPorId(ObjectId id) {
@@ -250,37 +249,5 @@ public class PropiedadesServiceImp implements IPropiedadesService {
             reportePublicacionRepositorio.delete(reporte);
         }
     }
-
-    @Override
-    public void mensajes(PropiedadesModel propiedad) {
-        PropiedadesModel propiedadEncontrada = buscarPropiedadPorId(propiedad.getId());
-        for(int i = 0; i < propiedad.getMensajeria().size(); i++){
-            ObjectId idUsuarioDestinatario = propiedad.getMensajeria().get(i).getIdUsuarioDestinatario();
-            ObjectId idUsuarioRemitente = propiedad.getMensajeria().get(i).getIdUsuarioRemitente();
-            String contenido = propiedad.getMensajeria().get(i).getContenido();
-            Date fecha = propiedad.getMensajeria().get(i).getFecha();
-            Date hora = propiedad.getMensajeria().get(i).getHora();
-            Mensajes mensaje = new Mensajes(idUsuarioDestinatario, idUsuarioRemitente, contenido, fecha, hora);
-            propiedadEncontrada.getMensajeria().add(mensaje);
-            propiedadesRepositorio.save(propiedadEncontrada);
-        }
-    }
-
-    @Override
-    public PropiedadesModel buscarMensajesPorIdUsuarioDestinatario(ObjectId idUsuarioDestinatario) {
-        Optional<PropiedadesModel> propiedad = propiedadesRepositorio.findByIdUsuarioRemitente(idUsuarioDestinatario);
-        return propiedad.orElse(null);
-    }
-
-    @Override
-    public List<Mensajes> listarMensajes(ObjectId idUsuarioDestinatario) {
-        PropiedadesModel propiedadEncontrada = buscarMensajesPorIdUsuarioDestinatario(idUsuarioDestinatario);
-        if(propiedadEncontrada.getMensajeria().size() == 0){
-            throw new UsuarioSinMensajes("No tienes mensajes actuales");
-        }
-        List<Mensajes> mensajes = propiedadEncontrada.getMensajeria();
-        return mensajes;
-    }
-
     
 }

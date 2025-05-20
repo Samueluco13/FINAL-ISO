@@ -19,5 +19,4 @@ public interface IPropiedadesRepository extends MongoRepository<PropiedadesModel
     List<PropiedadesModel> findByEstado(enumsEstadoPropiedad estado);
     @Query("{ 'mensajeria.idUsuarioDestinatario': ?0 }")
     Optional<PropiedadesModel> findByIdUsuarioRemitente(ObjectId idUsuarioDestinatario);
-
 }

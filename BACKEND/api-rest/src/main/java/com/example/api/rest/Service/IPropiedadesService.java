@@ -6,7 +6,6 @@ import java.util.List;
 import org.bson.types.ObjectId;
 
 import com.example.api.rest.Model.Comentarios;
-import com.example.api.rest.Model.Mensajes;
 import com.example.api.rest.Model.PropiedadesModel;
 import com.example.api.rest.Model.ReportePublicacionModel;
 import com.example.api.rest.Model.UsuarioModel;
@@ -31,7 +30,4 @@ public interface IPropiedadesService {
     public PropiedadesModel hacerVisiblePropiedad(ObjectId id);
     public void validarReporte(ObjectId idReporte, ReportePublicacionModel desicion);
     public ReportePublicacionModel buscarReportePorId(ObjectId idReporte);
-    public PropiedadesModel buscarMensajesPorIdUsuarioDestinatario(ObjectId idUsuarioDestinatario);
-    public List<Mensajes> listarMensajes(ObjectId idUsuarioRemitente);
-    public void mensajes(PropiedadesModel propiedad);
 }
