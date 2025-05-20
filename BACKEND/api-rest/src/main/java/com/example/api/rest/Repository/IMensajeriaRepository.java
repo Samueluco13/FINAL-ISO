@@ -7,4 +7,5 @@ import com.example.api.rest.Model.MensajeriaModel;
 
 public interface IMensajeriaRepository extends MongoRepository<MensajeriaModel, ObjectId>{
     List<MensajeriaModel> findByNombreUsuarioDestinatarioAndNombreUsuarioRemitenteOrderByFechaAscHoraAsc(String destinatario, String remitente);
+    List<MensajeriaModel> findByNombreUsuarioDestinatario(String nombreUsuarioDestinatario);
 }
