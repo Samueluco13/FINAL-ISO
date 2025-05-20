@@ -9,7 +9,7 @@ import org.bson.types.ObjectId;
 
 public interface IChatsService {
     public List<Mensajes> listarMensajes(ObjectId idUsuarioPropietario, String nombreUsuarioRemitente);
-    public void mensajes(ChatsModel mensaje);
+    public void mensajes(ObjectId idUsuarioDestinatario, ChatsModel mensaje);
     public List<ChatsModel> listarChats(String nombreUsuarioDestinatario);
     public UsuarioModel buscarUsuario(ObjectId idUsuarioPropietario);
     public ChatsModel buscarChat(String nombreUsuarioDestinatario, String nombreUsuarioRemitente);

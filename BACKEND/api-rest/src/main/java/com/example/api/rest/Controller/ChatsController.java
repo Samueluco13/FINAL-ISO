@@ -22,9 +22,9 @@ import com.example.api.rest.Service.IChatsService;
 public class ChatsController {
     @Autowired IChatsService chatsServicio;
 
-    @PostMapping("/CREAR-MENSAJE")
-    public ResponseEntity<String> crearMensaje(@RequestBody ChatsModel mensaje){
-        chatsServicio.mensajes(mensaje);
+    @PostMapping("/CREAR-MENSAJE/{idUsuarioDestinatario}")
+    public ResponseEntity<String> crearMensaje(@PathVariable ObjectId idUsuarioDestinatario,@RequestBody ChatsModel mensaje){
+        chatsServicio.mensajes(idUsuarioDestinatario, mensaje);
         return new ResponseEntity<String>("Mensaje enviado", HttpStatus.OK);
     }
 

@@ -32,8 +32,9 @@ public class ChatsServiceImp implements IChatsService{
     }
 
     @Override
-    public void mensajes(ChatsModel mensaje) {
-        ChatsModel chatEncontrado = buscarChat(mensaje.getNombreUsuarioDestinatario(), mensaje.getNombreUsuarioDestinatario());
+    public void mensajes(ObjectId idUsuarioDestinatario, ChatsModel mensaje) {
+        UsuarioModel usuarioEncontrado = buscarUsuario(idUsuarioDestinatario);
+        ChatsModel chatEncontrado = buscarChat(usuarioEncontrado.getNombre(), mensaje.getNombreUsuarioDestinatario());
         if(mensaje.getMensajes().size() == 0){
             throw new UsuarioSinMensajes("No tienes chats activos");
         }
