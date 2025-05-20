@@ -37,4 +37,9 @@ public class ChatsController {
     public ResponseEntity<List<Mensajes>> listarMensajes(@PathVariable ObjectId idUsuarioPropietario,@PathVariable String nombreUsuarioRemitente){
         return new ResponseEntity<List<Mensajes>>(chatsServicio.listarMensajes(idUsuarioPropietario,nombreUsuarioRemitente), HttpStatus.OK);
     }
+
+    @PostMapping("/BUSCAR-CHAT/{idUsuarioPropietario}")
+    public ResponseEntity<ChatsModel> crearChat(@PathVariable ObjectId idUsuarioPropietario, @RequestBody ChatsModel chat){
+        return new ResponseEntity<ChatsModel>(chatsServicio.crearChat(idUsuarioPropietario, chat), HttpStatus.OK);
+    }
 }
