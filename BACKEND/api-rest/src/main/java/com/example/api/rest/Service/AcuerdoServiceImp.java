@@ -116,4 +116,20 @@ public class AcuerdoServiceImp implements IAcuerdoService {
         acuerdoRepositorio.save(acuerdoEncontrado);
         return "El acuerdo se ha cancelado exitosamente.";
 }
+
+    @Override
+    public String calificarExperienciaPropiedad(ObjectId idPropiedad, AcuerdoModel calificacion) {
+        AcuerdoModel acuerdoEncontrado = buscarAcuerdoPorId(idPropiedad);
+        for(int i = 0; i < calificacion.getCalificacionEspacio().size(); i++){
+            acuerdoEncontrado.getCalificacionEspacio().add(calificacion.getCalificacionEspacio().get(i));
+            acuerdoRepositorio.save(acuerdoEncontrado);
+        }
+
+        return "Has realizado una calificacion a la propiedad: ";
+    }
+
+    @Override
+    public String calificarExperienciaArrendatario(ObjectId idPropiedad, AcuerdoModel calificacion) {
+        return "";
+    }
 }

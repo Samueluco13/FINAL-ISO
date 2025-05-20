@@ -19,7 +19,7 @@ import com.example.api.rest.Service.IChatsService;
 
 @RestController
 @RequestMapping("/UAO/INGSOFT/PROYECTO")
-public class MensajeriaController {
+public class ChatsController {
     @Autowired IChatsService chatsServicio;
 
     @PostMapping("/CREAR-MENSAJE")

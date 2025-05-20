@@ -13,4 +13,6 @@ public interface IAcuerdoService {
     public AcuerdoModel buscarAcuerdoPorId(ObjectId id);
     public AcuerdoModel actualizarAcuerdoPropiedad(ObjectId id, AcuerdoModel acuerdo);
     public String cancelarAcuerdoPropiedad(ObjectId id, String razonCancelacion);
+    public String calificarExperienciaPropiedad(ObjectId idPropiedad, AcuerdoModel calificacion);
+    public String calificarExperienciaArrendatario(ObjectId idPropiedad, AcuerdoModel calificacion);
 }
