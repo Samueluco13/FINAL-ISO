@@ -26,9 +26,9 @@ public class MensajeriaController {
         return new ResponseEntity<String>("Mensaje enviado", HttpStatus.OK);
     }
 
-    @PostMapping("/LISTAR-MENSAJES/{nombreUsuarioDestinatario}/{idUsuarioPropietario}")
-    public ResponseEntity<List<MensajeriaModel>> listarComentarios(@PathVariable String nombreUsuarioDestinatario, @PathVariable ObjectId idUsuarioPropietario){
-        return new ResponseEntity<List<MensajeriaModel>>(mensajeriaServicio.listarMensajes(nombreUsuarioDestinatario, idUsuarioPropietario), HttpStatus.OK);
+    @PostMapping("/LISTAR-MENSAJES/{idUsuarioPropietario}/{nombreUsuaroRemitente}")
+    public ResponseEntity<List<MensajeriaModel>> listarComentarios(@PathVariable  ObjectId idUsuarioPropietario, @PathVariable String nombreUsuarioRemitente){
+        return new ResponseEntity<List<MensajeriaModel>>(mensajeriaServicio.listarMensajes(idUsuarioPropietario, nombreUsuarioRemitente), HttpStatus.OK);
     }
 
     @PostMapping("/LISTAR-CHATS/{nombreUsuarioDestinatario}")

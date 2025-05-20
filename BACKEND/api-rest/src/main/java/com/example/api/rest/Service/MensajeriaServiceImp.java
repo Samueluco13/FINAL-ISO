@@ -27,9 +27,9 @@ public class MensajeriaServiceImp implements IMensajeriaService{
     } 
 
     @Override
-    public List<MensajeriaModel> listarMensajes(String nombreUsuarioDestinatario, ObjectId idUsuarioPropietario) {
+    public List<MensajeriaModel> listarMensajes(ObjectId idUsuarioPropietario, String nombreUsuarioRemitente) {
         UsuarioModel usuarioEncontrado = buscarUsuario(idUsuarioPropietario);
-        List<MensajeriaModel> listaDeMensajes = mensajeriaRepositorio.findByNombreUsuarioDestinatarioAndNombreUsuarioRemitenteOrderByFechaAscHoraAsc(nombreUsuarioDestinatario, usuarioEncontrado.getNombre());
+        List<MensajeriaModel> listaDeMensajes = mensajeriaRepositorio.findByNombreUsuarioDestinatarioAndNombreUsuarioRemitenteOrderByFechaAscHoraAsc(usuarioEncontrado.getNombre(), nombreUsuarioRemitente);
         if(listaDeMensajes.size() < 0){
             throw new UsuarioSinMensajes("No tienes mensajes actuales");
         }
