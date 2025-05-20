@@ -33,7 +33,8 @@ public class AcuerdoModel {
     private Date fechaFin;
     private enumsEstadoAcuerdo estado;
     private String razonCancelacion;
-    private List<EventosHistorial> eventosHistorial = new ArrayList<>();
+    private List<Date> historialRenovaciones = new ArrayList<>();
+    private List<Date> historialCancelaciones = new ArrayList<>();
     private List<CalificacionEspacio> calificacionEspacio = new ArrayList<>();
     private List<CalificacionArrendatario> calificacionArrendatario = new ArrayList<>();   
 }
