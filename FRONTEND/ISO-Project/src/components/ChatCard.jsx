@@ -1,4 +1,3 @@
-import React from 'react'
 import "../styles/chatCard.css"
 
 export const ChatCard = ({chat, onClick, onDelete}) => {

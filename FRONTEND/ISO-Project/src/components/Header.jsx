@@ -22,7 +22,7 @@ const Header = () => {
         console.log("Lo que devuelve: ", notis);
         console.log("Notificaciones: ", notis.data);
         setCount(notis.data.length);
-        setNotifications(notis.data);
+        setNotifications(notis.data.reverse());
       } catch (error) {
         console.log(error.notis?.data);
         console.log(error.message);
@@ -30,8 +30,6 @@ const Header = () => {
     }
     mostrarNotis()
   },[navigate, currentUser]);
-
-
 
   const toggleMenu = () => {
     setIsNotificationOpen(false);

@@ -1,4 +1,4 @@
-import React, { useState, useContext, useEffect } from "react";
+import { useState, useContext, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { AuthContext } from "../context/AuthContext.jsx";
 import AvisoCard from "../components/AvisoCard.jsx";
@@ -53,10 +53,8 @@ const AvisosPropios = () => {
       }
     }
     mostrarPropios()
-  }, [navigate, filters]);
+  }, [avisosPropios, navigate, filters]);
   console.log(avisosPropios);
-
-
 
 
   const handleDelete = async (nombre) => {

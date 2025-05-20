@@ -148,5 +148,30 @@ export class ArrendamientosService {
         return axios.post(`${backend}/LISTAR-NOTIFICACIONES/${userName}`);
     }
 
+
+    //METODOS DE MENSAJERIA
+    static joinChat(ownerId, jsonChat){
+        return axios.post(`${backend}/BUSCAR-CHAT/${ownerId}`, jsonChat,{
+            headers: {
+                "Content-Type": "application/json"
+            }
+        });
+    }
+
+    static listChats(userName){
+        return axios.post(`${backend}/LISTAR-CHATS/${userName}`);
+    }
+
+    static showMessages(reciverId, senderUserName){
+        return axios.post(`${backend}/LISTAR-MENSAJES/${reciverId}/${senderUserName}`);
+    }
+
+    static createMessage(jsonMessage){
+        return axios.post(`${backend}/CREAR-MENSAJE`, jsonMessage, {
+            headers:{
+                "Content-Type": "application/json"
+            }
+        })
+    }
     
 }

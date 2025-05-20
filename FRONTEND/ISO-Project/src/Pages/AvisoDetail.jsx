@@ -10,6 +10,7 @@ const AvisoDetail = () => {
   const navigate = useNavigate();
   const [aviso, setAviso] = useState(null);
   const [currentImage, setCurrentImage] = useState(0);
+  const [mensajes, setMensajes] = useState([]);
 
   console.log("Usuario actual", currentUser)
   console.log("Aviso actual ", aviso)
@@ -33,35 +34,89 @@ const AvisoDetail = () => {
   };
 
   const handleContact = () => {
-    const chats = JSON.parse(localStorage.getItem("chats")) || [];
 
-    const chatExistente = chats.find((chat) => //Encontrar el chat que:
-        chat.avisoId === id && //Coincida el id del aviso del chat, con el id del aviso en el que me encuentro
-        chat.participantes.includes(currentUser.id) && //Además los id de los participantes deben coincidir con el propio...
-        chat.participantes.includes(aviso.propietarioId) //Y el del dueño del aviso
-    );
-    console.log(localStorage.getItem("chats"));
-    console.log("Current USER ID: ", currentUser.id)
-    console.log("Propietario id: ", aviso.propietarioId)
+
+    const infoChat = {
+      nombreUsuarioDestinatario: "a",
+      nombreUsuarioRemitente: currentUser.userName,
+      mensajes: []
+    }
+
+    console.log(infoChat)
+
+    const ingresarAlChat = async () =>{ 
+      try{
+        console.log(aviso.idUsuarioPropietario)
+        const nuevoChat = await ArrendamientosService.joinChat(aviso.idUsuarioPropietario, infoChat);
+        console.log("Respuesta de la peticion: ", nuevoChat)
+        console.log("El chat: ", nuevochat.data)
+      }catch(error){
+          console.log(error.nuevoChat?.data);
+          console.log(error.message);
+          console.log(JSON.stringify(error))
+          console.log(error)
+        }
+    }
+    ingresarAlChat();
+
+
+
+    // console.log(aviso.idUsuarioPropietario, " -- ", currentUser.userName)
+    // const listaMensajes = async () => {
+    //     try{
+    //       const misMensajes = await ArrendamientosService.showMessages(aviso.idUsuarioPropietario, currentUser.userName);
+    //       console.log("Petition: ", misMensajes);
+    //       console.log("Mi lista de mensajes: ", misMensajes.data);
+    //       setMensajes(misMensajes.data);
+    //       navigate(`/chat-aviso?id=${nuevoChat.id}`);
+    //       console.log(mensajes);
+    //     }catch(error){
+    //       console.log(error.misMensajes?.data);
+    //       console.log(error.message);
+    //       console.log(JSON.stringify(error))
+    //     }
+    //   }
+    //   listaMensajes();
+
+
+
+
+
+
+
+
+
+
+
+    // const chats = JSON.parse(localStorage.getItem("chats")) || [];
+
+    // const chatExistente = chats.find((chat) => //Encontrar el chat que:
+    //     chat.avisoId === id && //Coincida el id del aviso del chat, con el id del aviso en el que me encuentro
+    //     chat.participantes.includes(currentUser.id) && //Además los id de los participantes deben coincidir con el propio...
+    //     chat.participantes.includes(aviso.propietarioId) //Y el del dueño del aviso
+    // );
+    // console.log(localStorage.getItem("chats"));
+    // console.log("Current USER ID: ", currentUser.id)
+    // console.log("Propietario id: ", aviso.propietarioId)
     
 
 
-    if(chatExistente){ //Si el chat existe
-      navigate(`/chat-aviso?id=${chatExistente.id}`); //Me dirije allá
-      console.log("Id del chat que EXISTE: ", chatExistente.id)
-    }else{
-      const nuevoChat = { //Si no existe, lo crea
-        id: Date.now().toString(),
-        avisoId: id,
-        tituloAviso: aviso.nombre,
-        participantes: [currentUser.id, aviso.idUsuarioPropietario],
-        msg: []
-      }
-      const nuevosChats = [...chats, nuevoChat]; //Después de crearlo, lo junta con los demás que tenga el usuario
-      localStorage.setItem("chats", JSON.stringify(nuevosChats)) //Lo guarda en el localStorage
-      navigate(`/chat-aviso?id=${nuevoChat.id}`); //Me dirige al chat recien creado
-      console.log("Id del chat que NO EXISTE: ", nuevoChat.id)
-    }
+    // if(chatExistente){ //Si el chat existe
+    //   navigate(`/chat-aviso?id=${chatExistente.id}`); //Me dirije allá
+    //   console.log("Id del chat que EXISTE: ", chatExistente.id)
+    // }else{
+    //   const nuevoChat = { //Si no existe, lo crea
+    //     id: Date.now().toString(),
+    //     avisoId: id,
+    //     tituloAviso: aviso.nombre,
+    //     participantes: [currentUser.id, aviso.idUsuarioPropietario],
+    //     msg: []
+    //   }
+    //   const nuevosChats = [...chats, nuevoChat]; //Después de crearlo, lo junta con los demás que tenga el usuario
+    //   localStorage.setItem("chats", JSON.stringify(nuevosChats)) //Lo guarda en el localStorage
+    //   navigate(`/chat-aviso?id=${nuevoChat.id}`); //Me dirige al chat recien creado
+    //   console.log("Id del chat que NO EXISTE: ", nuevoChat.id)
+    // }
   }
 
   if (!aviso) return null;
@@ -103,13 +158,9 @@ const AvisoDetail = () => {
         <div className="aviso-detail-info">
           <p><strong>Precio:</strong> ${aviso.costo.toLocaleString()}/mes</p>
           <p><strong>Tipo de Espacio:</strong> {aviso.tipo.charAt(0).toUpperCase() + aviso.tipo.slice(1)}</p>
-          {/* <p><strong>Habitaciones:</strong> {aviso.habitaciones || "N/A"}</p>
-          <p><strong>Área:</strong> {aviso.area || "N/A"} m²</p>
-          <p><strong>Ubicación:</strong> {aviso.ubicacion || "No especificada"}</p> */}
           <p><strong>Descripción:</strong> {aviso.descripcion}</p>
           <p><strong>Condiciones:</strong> {aviso.condiciones || "No especificadas"}</p>
           <p><strong>Disponibilidad:</strong> {aviso.disponibilidad} </p>
-          {/* <p><strong>Propietario:</strong> {aviso.propietario}</p> */}
           {aviso.visible === false && aviso.motivoDesactivacion && (
             <p><strong>Motivo de Desactivación:</strong> {aviso.motivoDesactivacion}</p>
           )}
@@ -127,7 +178,6 @@ const AvisoDetail = () => {
             )}
           </div>
         </div>
-
     </div>
   );
 };

@@ -1,6 +1,5 @@
-import React, { useState, useContext, useEffect } from "react";
+import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
-import { AuthContext } from "../context/AuthContext.jsx";
 import AvisoCard from "../components/AvisoCard.jsx";
 import { ArrendamientosService } from "../services/ArrendamientoService.js";
 import "../styles/avisos.css";
@@ -23,26 +22,9 @@ const ValidateAviso = () => {
       }
     }
     toValidate();
-  }, [])
+  }, [validate])
 
   const handleValidate = async (id) => {
-    // const updatedAvisos = avisos.map((aviso) =>
-    //   aviso.id === id ? { ...aviso, estado: "publicado", visible: true } : aviso
-    // );
-    // setAvisos(updatedAvisos);
-    // localStorage.setItem("avisos", JSON.stringify(updatedAvisos));
-
-    // const historial = JSON.parse(localStorage.getItem("historial")) || [];
-    // const aviso = avisos.find((a) => a.id === id);
-    // historial.push({
-    //   id: Date.now().toString(),
-    //   accion: "Aviso Validado",
-    //   avisoId: id,
-    //   titulo: aviso.titulo,
-    //   usuario: currentUser.nombre,
-    //   fecha: new Date().toISOString(),
-    // });
-    // localStorage.setItem("historial", JSON.stringify(historial));
     console.log(id)
     try{
       const toValidate = await ArrendamientosService.validatePublication(id);

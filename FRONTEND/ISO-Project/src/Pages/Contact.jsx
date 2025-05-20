@@ -1,6 +1,7 @@
-import React, { useState, useEffect, useContext } from "react";
+import { useState, useEffect, useContext } from "react";
 import { useNavigate, useLocation } from "react-router-dom";
 import { AuthContext } from "../context/AuthContext.jsx";
+import { ArrendamientosService } from "../services/ArrendamientoService.js";
 import "../styles/chat.css";
 
 const Contact = () => {
@@ -12,8 +13,31 @@ const Contact = () => {
   const [chat, setChat] = useState(null);
   const [aviso, setAviso] = useState(null);
   const [mensajes, setMensajes] = useState("");
+  const [mensajito, setMensajito] = useState({
+    contenido: ""
+  });
 
   useEffect(() => { //Carga el chat que existia antes o el que se creó a la hora de redirigir hacia esta pagina
+    const listaMensajes = async () => {
+      try{
+        const misMensajes = await ArrendamientosService.showMessages(currentUser.userName)
+      }catch(error){
+        console.log(error.propios?.data);
+        console.log(error.message);
+      }
+    }
+
+
+
+
+
+
+
+
+
+
+
+
     const chats = JSON.parse(localStorage.getItem("chats")) || [];
     const chatExistente = chats.find((chat) => chat.id === chatId); //Busca el chat que tenga un id que coincida con el de la URL
 
@@ -37,6 +61,26 @@ const Contact = () => {
 
   const handleSubmit = (e) => {
     e.preventDefault();
+
+    const newMessage = {
+
+    }
+
+    const crearMensaje = async () => {
+      try{
+        const mensaje = await ArrendamientosService.createMessage(newMessage)
+      }catch(error){
+        console.log(error.mensaje?.data);
+        console.log(error.message);
+      }
+    }
+
+
+
+
+
+
+
     if (!mensajes.trim()) return;
 
     const chats = JSON.parse(localStorage.getItem("chats")) || [];
