@@ -11,11 +11,17 @@ import com.example.api.rest.Excepciones.AcuerdoFechaParaActualizar;
 import com.example.api.rest.Excepciones.AcuerdoNoEncontrado;
 import com.example.api.rest.Excepciones.AcuerdoPropiedadNoEncontrada;
 import com.example.api.rest.Model.AcuerdoModel;
+import com.example.api.rest.Model.NotificacionesModel;
 import com.example.api.rest.Model.PropiedadesModel;
+import com.example.api.rest.Model.UsuarioModel;
 import com.example.api.rest.Model.ENUM.enumsDisponibilidad;
 import com.example.api.rest.Model.ENUM.enumsEstadoAcuerdo;
+import com.example.api.rest.Model.ENUM.enumsNotificaciones;
 import com.example.api.rest.Repository.IAcuerdoRepository;
+import com.example.api.rest.Repository.INotificacionesRepositorty;
 import com.example.api.rest.Repository.IPropiedadesRepository;
+import com.example.api.rest.Repository.IUsuarioRepository;
+
 import org.bson.types.ObjectId;
 
 
@@ -23,6 +29,8 @@ import org.bson.types.ObjectId;
 public class AcuerdoServiceImp implements IAcuerdoService {
     @Autowired IAcuerdoRepository acuerdoRepositorio;
     @Autowired IPropiedadesRepository propiedadesRepositorio;
+    @Autowired IUsuarioRepository usuarioRepositorio;
+    @Autowired INotificacionesRepositorty notificacionesRepositorio;
 
     @Override
     public PropiedadesModel buscarPropiedadAcuerdo(ObjectId id) {
@@ -115,21 +123,34 @@ public class AcuerdoServiceImp implements IAcuerdoService {
         }
         acuerdoRepositorio.save(acuerdoEncontrado);
         return "El acuerdo se ha cancelado exitosamente.";
-}
+    }
 
     @Override
-    public String calificarExperienciaPropiedad(ObjectId idPropiedad, AcuerdoModel calificacion) {
-        AcuerdoModel acuerdoEncontrado = buscarAcuerdoPorId(idPropiedad);
-        for(int i = 0; i < calificacion.getCalificacionEspacio().size(); i++){
-            acuerdoEncontrado.getCalificacionEspacio().add(calificacion.getCalificacionEspacio().get(i));
+    public UsuarioModel buscarUsuario(ObjectId idUsuario) {
+        return usuarioRepositorio.findById(idUsuario).orElseThrow(null);
+    }
+
+    @Override
+    public String calificarExperienciaPropiedad(AcuerdoModel acuerdoCalificacion) {
+        AcuerdoModel acuerdoEncontrado = buscarAcuerdoPorId(acuerdoCalificacion.getIdPropiedad());
+        PropiedadesModel propiedadEncontrada = buscarPropiedadAcuerdo(acuerdoCalificacion.getIdPropiedad());
+
+        UsuarioModel usuarioEncontradoCreador = buscarUsuario(acuerdoCalificacion.getIdUsuarioInteresado());
+        UsuarioModel usuarioEncontradoDestinatario = buscarUsuario(propiedadEncontrada.getIdUsuarioPropietario());
+        for(int i = 0; i < acuerdoCalificacion.getCalificacionEspacio().size(); i++){
+            acuerdoEncontrado.getCalificacionEspacio().add(acuerdoCalificacion.getCalificacionEspacio().get(i));
+            propiedadEncontrada.setPromedioCalificacion(acuerdoCalificacion.getCalificacionEspacio().get(i).getCalificacion());
+            Date fechaActual = new Date();
+            NotificacionesModel notificacion = new NotificacionesModel(enumsNotificaciones.calificacion, fechaActual, usuarioEncontradoCreador.getNombre(), "El usuario con nombre: " + usuarioEncontradoCreador.getNombre() + " ,ha hecho una calificacion a la propiedad: " + propiedadEncontrada.getNombre(), usuarioEncontradoDestinatario.getNombre());
+            propiedadesRepositorio.save(propiedadEncontrada);
+            notificacionesRepositorio.save(notificacion);
             acuerdoRepositorio.save(acuerdoEncontrado);
         }
-
         return "Has realizado una calificacion a la propiedad: ";
     }
 
     @Override
-    public String calificarExperienciaArrendatario(ObjectId idPropiedad, AcuerdoModel calificacion) {
+    public String calificarExperienciaArrendatario(AcuerdoModel acuerdoCalificacion) {
         return "";
-    }
+    }  
 }
