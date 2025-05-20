@@ -23,7 +23,7 @@ import com.example.api.rest.Model.ReportePublicacionModel;
 import com.example.api.rest.Model.UsuarioModel;
 import com.example.api.rest.Model.ENUM.enumsEstadoPropiedad;
 import com.example.api.rest.Model.ENUM.enumsNotificaciones;
-import com.example.api.rest.Repository.IMensajeriaRepository;
+import com.example.api.rest.Repository.IChatsRepository;
 import com.example.api.rest.Repository.INotificacionesRepositorty;
 import com.example.api.rest.Repository.IPropiedadesRepository;
 import com.example.api.rest.Repository.IReportePublicacionRepository;
@@ -35,7 +35,7 @@ public class PropiedadesServiceImp implements IPropiedadesService {
     @Autowired IReportePublicacionRepository reportePublicacionRepositorio;
     @Autowired IUsuarioRepository usuarioRepositorio;
     @Autowired INotificacionesRepositorty notificacionesRepositorio;
-    @Autowired IMensajeriaRepository mensajeriaRepositorio;
+    @Autowired IChatsRepository mensajeriaRepositorio;
 
     @Override
     public UsuarioModel buscarUsuarioPorId(ObjectId id) {

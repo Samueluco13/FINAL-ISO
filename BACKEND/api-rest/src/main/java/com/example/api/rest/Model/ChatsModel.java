@@ -1,6 +1,6 @@
 package com.example.api.rest.Model;
 
-import java.util.Date;
+import java.util.List;
 
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
@@ -13,17 +13,15 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-@Document("Mensajeria")
+@Document("Chats")
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-public class MensajeriaModel {
+public class ChatsModel {
     @Id
     @JsonSerialize(using = ToStringSerializer.class)
     private ObjectId id;
     private String nombreUsuarioDestinatario;
     private String nombreUsuarioRemitente;
-    private String contenido;
-    private Date fecha;
-    private Date hora;
+    private List<Mensajes> mensajes;
 }
