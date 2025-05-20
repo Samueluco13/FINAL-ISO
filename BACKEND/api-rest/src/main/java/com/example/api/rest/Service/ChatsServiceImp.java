@@ -46,7 +46,8 @@ public class ChatsServiceImp implements IChatsService{
 
     @Override
     public List<Mensajes> listarMensajes(ObjectId idUsuarioPropietario, String nombreUsuarioRemitente) {
-        ChatsModel chatEncontrado = buscarChat(nombreUsuarioRemitente, nombreUsuarioRemitente);
+        UsuarioModel usuarioEncontrado = buscarUsuario(idUsuarioPropietario);
+        ChatsModel chatEncontrado = buscarChat(usuarioEncontrado.getNombre(), nombreUsuarioRemitente);
         if(chatEncontrado.getMensajes().size() == 0){
             throw new UsuarioSinMensajes("no tienes mensajes actuales");
         }
