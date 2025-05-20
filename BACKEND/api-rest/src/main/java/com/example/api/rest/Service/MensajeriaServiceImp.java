@@ -7,24 +7,34 @@ import org.springframework.stereotype.Service;
 
 import com.example.api.rest.Excepciones.UsuarioSinMensajes;
 import com.example.api.rest.Model.MensajeriaModel;
+import com.example.api.rest.Model.UsuarioModel;
 import com.example.api.rest.Repository.IMensajeriaRepository;
+import com.example.api.rest.Repository.IUsuarioRepository;
+import org.bson.types.ObjectId;
 
 @Service
 public class MensajeriaServiceImp implements IMensajeriaService{
     @Autowired IMensajeriaRepository mensajeriaRepositorio;
+    @Autowired IUsuarioRepository usuarioRepositorio;
     @Override
     public void mensajes(MensajeriaModel mensaje) {
         mensajeriaRepositorio.save(mensaje);
     }
 
     @Override
-    public List<MensajeriaModel> listarMensajes(String nombreUsuarioDestinatario, String nombreUsuarioRemitente) {
-        List<MensajeriaModel> listaDeMensajes = mensajeriaRepositorio.findByNombreUsuarioDestinatarioAndNombreUsuarioRemitenteOrderByFechaAscHoraAsc(nombreUsuarioDestinatario, nombreUsuarioRemitente);
+    public UsuarioModel buscarUsuario(ObjectId idUsuarioPropietario) {
+        return usuarioRepositorio.findById(idUsuarioPropietario).orElseThrow(null);
+    } 
+
+    @Override
+    public List<MensajeriaModel> listarMensajes(String nombreUsuarioDestinatario, ObjectId idUsuarioPropietario) {
+        UsuarioModel usuarioEncontrado = buscarUsuario(idUsuarioPropietario);
+        List<MensajeriaModel> listaDeMensajes = mensajeriaRepositorio.findByNombreUsuarioDestinatarioAndNombreUsuarioRemitenteOrderByFechaAscHoraAsc(nombreUsuarioDestinatario, usuarioEncontrado.getNombre());
         if(listaDeMensajes.size() < 0){
             throw new UsuarioSinMensajes("No tienes mensajes actuales");
         }
         return listaDeMensajes;
-    }
+    } 
 
     @Override
     public List<MensajeriaModel> listarChats(String nombreUsuarioDestinatario) {
@@ -33,5 +43,6 @@ public class MensajeriaServiceImp implements IMensajeriaService{
             throw new UsuarioSinMensajes("No tienes chats");
         }
         return chats;
-    }    
+    }
+
 }

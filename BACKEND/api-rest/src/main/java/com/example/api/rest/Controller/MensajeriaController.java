@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.example.api.rest.Model.MensajeriaModel;
+import org.bson.types.ObjectId;
 import com.example.api.rest.Service.IMensajeriaService;
 
 @RestController
@@ -25,9 +26,9 @@ public class MensajeriaController {
         return new ResponseEntity<String>("Mensaje enviado", HttpStatus.OK);
     }
 
-    @PostMapping("/LISTAR-MENSAJES/{nombreUsuarioDestinatario}/{nombreUsuarioRemitente}")
-    public ResponseEntity<List<MensajeriaModel>> listarComentarios(@PathVariable String nombreUsuarioDestinatario, @PathVariable String nombreUsuarioRemitente){
-        return new ResponseEntity<List<MensajeriaModel>>(mensajeriaServicio.listarMensajes(nombreUsuarioDestinatario, nombreUsuarioRemitente), HttpStatus.OK);
+    @PostMapping("/LISTAR-MENSAJES/{nombreUsuarioDestinatario}/{idUsuarioPropietario}")
+    public ResponseEntity<List<MensajeriaModel>> listarComentarios(@PathVariable String nombreUsuarioDestinatario, @PathVariable ObjectId idUsuarioPropietario){
+        return new ResponseEntity<List<MensajeriaModel>>(mensajeriaServicio.listarMensajes(nombreUsuarioDestinatario, idUsuarioPropietario), HttpStatus.OK);
     }
 
     @PostMapping("/LISTAR-CHATS/{nombreUsuarioDestinatario}")
