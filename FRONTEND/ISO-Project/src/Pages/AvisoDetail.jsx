@@ -49,7 +49,7 @@ const AvisoDetail = () => {
         console.log(aviso.idUsuarioPropietario)
         const nuevoChat = await ArrendamientosService.joinChat(aviso.idUsuarioPropietario, infoChat);
         console.log("Respuesta de la peticion: ", nuevoChat)
-        console.log("El chat: ", nuevochat.data)
+        console.log("El chat: ", nuevoChat.data)
       }catch(error){
           console.log(error.nuevoChat?.data);
           console.log(error.message);
