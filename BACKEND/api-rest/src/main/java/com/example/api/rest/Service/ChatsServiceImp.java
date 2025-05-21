@@ -22,7 +22,7 @@ public class ChatsServiceImp implements IChatsService{
 
     @Override
     public UsuarioModel buscarUsuario(ObjectId idUsuarioPropietario) {
-        return usuarioRepositorio.findById(idUsuarioPropietario).orElseThrow(null);
+        return usuarioRepositorio.findById(idUsuarioPropietario).orElse(null);
     } 
 
     @Override
@@ -70,13 +70,15 @@ public class ChatsServiceImp implements IChatsService{
     @Override
     public ChatsModel crearChat(ObjectId idUsuarioPropietario, ChatsModel chat) {
         UsuarioModel usuarioEncontrado = buscarUsuario(idUsuarioPropietario);
+        System.out.println(usuarioEncontrado.getNombre());
         chat.setNombreUsuarioDestinatario(usuarioEncontrado.getNombre());
-        
+        System.out.println(chat.getNombreUsuarioDestinatario());
+        chatsRepositorio.save(chat);
+
         ChatsModel chatEncontrado = buscarChat(chat.getNombreUsuarioDestinatario(), chat.getNombreUsuarioRemitente());
         if(chatEncontrado != null){
             return chatEncontrado;
         }
-        chatsRepositorio.save(chat);
         return chat;
     }
 
