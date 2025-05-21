@@ -40,6 +40,6 @@ public class ChatsController {
 
     @PostMapping("/BUSCAR-CHAT/{idUsuarioPropietario}")
     public ResponseEntity<ChatsModel> crearChat(@PathVariable ObjectId idUsuarioPropietario, @RequestBody ChatsModel chat){
-        return new ResponseEntity<ChatsModel>(chatsServicio.crearChat(idUsuarioPropietario, chat), HttpStatus.OK);
+        return new ResponseEntity<ChatsModel>(chatsServicio.crearChat(idUsuarioPropietario,chat), HttpStatus.OK);
     }
 }

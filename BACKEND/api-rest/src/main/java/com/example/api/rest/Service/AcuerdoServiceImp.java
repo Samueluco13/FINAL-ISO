@@ -146,11 +146,26 @@ public class AcuerdoServiceImp implements IAcuerdoService {
             notificacionesRepositorio.save(notificacion);
             acuerdoRepositorio.save(acuerdoEncontrado);
         }
-        return "Has realizado una calificacion a la propiedad: ";
+        return "Has realizado una calificacion a la propiedad: " + propiedadEncontrada.getNombre();
     }
 
     @Override
     public String calificarExperienciaArrendatario(AcuerdoModel acuerdoCalificacion) {
-        return "";
+        AcuerdoModel acuerdoEncontrado = buscarAcuerdoPorId(acuerdoCalificacion.getIdPropiedad());
+        PropiedadesModel propiedadEncontrada = buscarPropiedadAcuerdo(acuerdoCalificacion.getIdPropiedad());
+
+        UsuarioModel usuarioInteresado = buscarUsuario(acuerdoCalificacion.getIdUsuarioInteresado());
+        UsuarioModel usuarioPropietario = buscarUsuario(propiedadEncontrada.getIdUsuarioPropietario());
+
+        for(int i = 0; i < acuerdoCalificacion.getCalificacionArrendatario().size(); i++){
+            acuerdoEncontrado.getCalificacionArrendatario().add(acuerdoCalificacion.getCalificacionArrendatario().get(i));
+            usuarioInteresado.setPromedioCalificacion(acuerdoCalificacion.getCalificacionArrendatario().get(i).getCalificacion());
+            Date fechaActual = new Date();
+            NotificacionesModel notificacion = new NotificacionesModel(enumsNotificaciones.calificacion, fechaActual, usuarioPropietario.getNombre(), "El usuario con nombre: " + usuarioPropietario.getNombre() + " ,ha hecho una calificacion hacia ti", usuarioInteresado.getNombre());
+            acuerdoRepositorio.save(acuerdoEncontrado);
+            usuarioRepositorio.save(usuarioInteresado);
+            notificacionesRepositorio.save(notificacion);
+        }
+        return "Has realizado una calificacion a el usuario: " + usuarioInteresado.getNombre();
     }  
 }
