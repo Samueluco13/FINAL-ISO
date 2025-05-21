@@ -114,8 +114,13 @@ public class AcuerdoServiceImp implements IAcuerdoService {
 
         //Si se cancela antes de la fecha de inicio, se cuelve a publicar el aviso como "Disponible"
         if (acuerdoEncontrado.getFechaInicio().after(new Date())) {
-            PropiedadesModel propiedadAModificar = buscarPropiedadAcuerdo(id);
+            ObjectId idPropiedad = acuerdoEncontrado.getIdPropiedad();
+            PropiedadesModel propiedadAModificar = buscarPropiedadAcuerdo(idPropiedad);
+            if (propiedadAModificar == null) {
+                throw new AcuerdoPropiedadNoEncontrada("Propiedad no encontrada al cancelar acuerdo");
+            }
             propiedadAModificar.setDisponibilidad(enumsDisponibilidad.disponible);
+            propiedadAModificar.setVisible(true);
             propiedadesRepositorio.save(propiedadAModificar);
         }else{
             //Si la cancelación pasa durante el periodo de arrendamiento, la registramos en el historial
