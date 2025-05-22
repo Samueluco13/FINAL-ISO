@@ -63,7 +63,7 @@ public class ChatsServiceImp implements IChatsService{
         List<ChatsModel> chats = chatsRepositorio.findByNombreUsuarioDestinatario(nombreUsuarioDestinatario);
         if(chats.size() < 0){
             throw new UsuarioSinMensajes("No tienes chats");
-        }
+        } 
         return chats;
     }
 
@@ -71,8 +71,6 @@ public class ChatsServiceImp implements IChatsService{
     public ChatsModel crearChat(ObjectId idUsuarioPropietario, ChatsModel chat) {
         UsuarioModel usuarioEncontrado = buscarUsuario(idUsuarioPropietario);
         chat.setNombreUsuarioDestinatario(usuarioEncontrado.getUserName());
-        
-
         ChatsModel chatEncontrado = buscarChat(chat.getNombreUsuarioDestinatario(), chat.getNombreUsuarioRemitente());
         if(chatEncontrado == null){
             chatsRepositorio.save(chat);

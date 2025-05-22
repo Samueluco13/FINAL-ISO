@@ -24,4 +24,5 @@ public class ChatsModel {
     private String nombreUsuarioDestinatario;
     private String nombreUsuarioRemitente;
     private List<Mensajes> mensajes;
+    private String avisoNombre;
 }
