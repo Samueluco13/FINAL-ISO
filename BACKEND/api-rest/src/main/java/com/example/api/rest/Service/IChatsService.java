@@ -12,6 +12,6 @@ public interface IChatsService {
     public void mensajes(ObjectId idUsuarioDestinatario, ChatsModel mensaje);
     public List<ChatsModel> listarChats(String nombreUsuarioDestinatario);
     public UsuarioModel buscarUsuario(ObjectId idUsuarioPropietario);
-    public ChatsModel buscarChat(String nombreUsuarioDestinatario, String nombreUsuarioRemitente);
+    public ChatsModel buscarChat(List<String> participantes);
     public ChatsModel crearChat(ObjectId idUsuarioPropietario, ChatsModel chat);
 }

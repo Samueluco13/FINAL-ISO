@@ -22,24 +22,24 @@ import com.example.api.rest.Service.IChatsService;
 public class ChatsController {
     @Autowired IChatsService chatsServicio;
 
-    @PostMapping("/CREAR-MENSAJE/{idUsuarioDestinatario}")
-    public ResponseEntity<String> crearMensaje(@PathVariable ObjectId idUsuarioDestinatario,@RequestBody ChatsModel mensaje){
-        chatsServicio.mensajes(idUsuarioDestinatario, mensaje);
+    @PostMapping("/CREAR-MENSAJE/{idUsuario}")
+    public ResponseEntity<String> crearMensaje(@PathVariable ObjectId idUsuario,@RequestBody ChatsModel mensaje){
+        chatsServicio.mensajes(idUsuario, mensaje);
         return new ResponseEntity<String>("Mensaje enviado", HttpStatus.OK);
     }
 
-    @PostMapping("/LISTAR-CHATS/{nombreUsuarioDestinatario}")
-    public ResponseEntity<List<ChatsModel>> listarChats(@PathVariable String nombreUsuarioDestinatario){
-        return new ResponseEntity<List<ChatsModel>>(chatsServicio.listarChats(nombreUsuarioDestinatario), HttpStatus.OK);
+    @PostMapping("/LISTAR-CHATS/{nombreUsuario}")
+    public ResponseEntity<List<ChatsModel>> listarChats(@PathVariable String nombreUsuario){
+        return new ResponseEntity<List<ChatsModel>>(chatsServicio.listarChats(nombreUsuario), HttpStatus.OK);
     }
 
-    @PostMapping("/LISTAR-MENSAJES/{idUsuarioPropietario}/{nombreUsuarioRemitente}")
-    public ResponseEntity<List<Mensajes>> listarMensajes(@PathVariable ObjectId idUsuarioPropietario,@PathVariable String nombreUsuarioRemitente){
-        return new ResponseEntity<List<Mensajes>>(chatsServicio.listarMensajes(idUsuarioPropietario,nombreUsuarioRemitente), HttpStatus.OK);
+    @PostMapping("/LISTAR-MENSAJES/{idParticipante1}/{nombreParticipante2}")
+    public ResponseEntity<List<Mensajes>> listarMensajes(@PathVariable ObjectId idParticipante1,@PathVariable String nombreParticipante2){
+        return new ResponseEntity<List<Mensajes>>(chatsServicio.listarMensajes(idParticipante1,nombreParticipante2), HttpStatus.OK);
     }
 
-    @PostMapping("/BUSCAR-CHAT/{idUsuarioPropietario}")
-    public ResponseEntity<ChatsModel> crearChat(@PathVariable ObjectId idUsuarioPropietario, @RequestBody ChatsModel chat){
-        return new ResponseEntity<ChatsModel>(chatsServicio.crearChat(idUsuarioPropietario,chat), HttpStatus.OK);
+    @PostMapping("/BUSCAR-CHAT/{idUsuario}")
+    public ResponseEntity<ChatsModel> crearChat(@PathVariable ObjectId idUsuario, @RequestBody ChatsModel chat){
+        return new ResponseEntity<ChatsModel>(chatsServicio.crearChat(idUsuario,chat), HttpStatus.OK);
     }
 }

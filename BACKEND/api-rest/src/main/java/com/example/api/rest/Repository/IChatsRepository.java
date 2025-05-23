@@ -3,11 +3,12 @@ import java.util.List;
 import java.util.Optional;
 
 import org.springframework.data.mongodb.repository.MongoRepository;
+import org.springframework.data.mongodb.repository.Query;
 
 import com.example.api.rest.Model.ChatsModel;
 
 public interface IChatsRepository extends MongoRepository<ChatsModel, ObjectId>{
-    List<ChatsModel> findByNombreUsuarioDestinatario(String nombreUsuarioDestinatario);
-    Optional<ChatsModel> findByNombreUsuarioDestinatarioAndNombreUsuarioRemitente(String nombreUsuarioDestinatario, String nombreUsuarioRemitente);
-
+    @Query("{ 'participantes': { $all: ?0 }, $expr: { $eq: [ { $size: '$participantes' }, 2 ] } }")
+    Optional<ChatsModel> findChatByExactTwoParticipants(List<String> participantes);
+    List<ChatsModel> findByParticipantesContaining(String nombreUsuario);
 }

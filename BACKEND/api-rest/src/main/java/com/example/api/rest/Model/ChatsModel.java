@@ -21,8 +21,7 @@ public class ChatsModel {
     @Id
     @JsonSerialize(using = ToStringSerializer.class)
     private ObjectId id;
-    private String nombreUsuarioDestinatario;
-    private String nombreUsuarioRemitente;
+    private List<String> participantes;
     private List<Mensajes> mensajes;
     private String avisoNombre;
 }
