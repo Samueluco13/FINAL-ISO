@@ -33,9 +33,9 @@ public class ChatsController {
         return new ResponseEntity<List<ChatsModel>>(chatsServicio.listarChats(nombreUsuario), HttpStatus.OK);
     }
 
-    @PostMapping("/LISTAR-MENSAJES/{idParticipante1}/{nombreParticipante2}")
-    public ResponseEntity<List<Mensajes>> listarMensajes(@PathVariable ObjectId idParticipante1,@PathVariable String nombreParticipante2){
-        return new ResponseEntity<List<Mensajes>>(chatsServicio.listarMensajes(idParticipante1,nombreParticipante2), HttpStatus.OK);
+    @PostMapping("/LISTAR-MENSAJES/{idParticipante1}/{nombreParticipante2}/{nombreParticipante1}")
+    public ResponseEntity<List<Mensajes>> listarMensajes(@PathVariable ObjectId idParticipante1,@PathVariable String nombreParticipante2, @PathVariable String nombreParticipante1){
+        return new ResponseEntity<List<Mensajes>>(chatsServicio.listarMensajes(idParticipante1,nombreParticipante2, nombreParticipante1), HttpStatus.OK);
     }
 
     @PostMapping("/BUSCAR-CHAT/{idUsuario}")

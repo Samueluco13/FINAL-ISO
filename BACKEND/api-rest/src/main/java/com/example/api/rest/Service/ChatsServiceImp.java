@@ -26,6 +26,12 @@ public class ChatsServiceImp implements IChatsService{
     } 
 
     @Override
+    public UsuarioModel buscarUsuarioPorNombre(String nombre) {
+        Optional<UsuarioModel> usuarioEncontrado = usuarioRepositorio.findByUserName(nombre);
+        return usuarioEncontrado.orElse(null);
+    }
+
+    @Override
     public ChatsModel buscarChat(List<String> participantes) {
         Optional<ChatsModel> chatEncontrado = chatsRepositorio.findChatByExactTwoParticipants(participantes);
         return chatEncontrado.orElse(null);
@@ -43,20 +49,36 @@ public class ChatsServiceImp implements IChatsService{
     }
 
     @Override
-    public List<Mensajes> listarMensajes(ObjectId idUsuarioPropietario, String nombreUsuarioRemitente) {
+    public List<Mensajes> listarMensajes(ObjectId idUsuarioPropietario, String nombreUsuarioRemitente, String nombreParticipante1) {
         UsuarioModel usuarioEncontrado = buscarUsuario(idUsuarioPropietario);
+        UsuarioModel usuarioEncontrado2 = buscarUsuarioPorNombre(nombreParticipante1);
         List<String> participantes = new ArrayList<>();
+        if(usuarioEncontrado2 == null){
+            participantes.add(nombreUsuarioRemitente);
+            participantes.add(usuarioEncontrado.getUserName());
+            ChatsModel chatEncontrado = buscarChat(participantes);
+            if(chatEncontrado.getMensajes().size() == 0){
+                throw new UsuarioSinMensajes("no tienes mensajes actuales");
+            }
+            List<Mensajes> mensajes = new ArrayList<>();
+            for(int i = 0; i < chatEncontrado.getMensajes().size(); i++){
+                mensajes.add(chatEncontrado.getMensajes().get(i));
+            }
+            return mensajes;
+        }
+        participantes.add(nombreParticipante1);
         participantes.add(nombreUsuarioRemitente);
-        participantes.add(usuarioEncontrado.getUserName());
-        ChatsModel chatEncontrado = buscarChat(participantes);
-        if(chatEncontrado.getMensajes().size() == 0){
+        ChatsModel chatEncontrado2 = buscarChat(participantes);
+        if(chatEncontrado2.getMensajes().size() == 0){
             throw new UsuarioSinMensajes("no tienes mensajes actuales");
         }
-        List<Mensajes> mensajes = new ArrayList<>();
-        for(int i = 0; i < chatEncontrado.getMensajes().size(); i++){
-            mensajes.add(chatEncontrado.getMensajes().get(i));
+        List<Mensajes> mensajes2 = new ArrayList<>();
+        for(int i = 0; i < chatEncontrado2.getMensajes().size(); i++){
+            mensajes2.add(chatEncontrado2.getMensajes().get(i));
         }
-        return mensajes;
+        return mensajes2;
+
+        
     } 
 
     @Override
@@ -79,6 +101,5 @@ public class ChatsServiceImp implements IChatsService{
         }
         return chatEncontrado;
     }
-
 
 }
