@@ -9,7 +9,10 @@ export const AuthProvider = ({ children }) => {
   const navigate = useNavigate();
   const [currentUser, setCurrentUser] = useState(null);
   const [error, setError] = useState("");
-    const [recordarme, setRecordarme] = useState(false);
+  const [recordarme, setRecordarme] = useState(false);
+  const [avisoActual, setAvisoActual] = useState(null);
+  const [chatActual, setChatActual] = useState(null);
+  const [avisosDisponibles, setAvisosDisponibles] = useState([])
 
   const login = (user, recordarme) => {
     setCurrentUser(user);
@@ -73,8 +76,24 @@ export const AuthProvider = ({ children }) => {
   }, []);
 
   return (
-    <AuthContext.Provider value={{ currentUser, setCurrentUser, login, logout, loginGoogle, error, setError, recordarme, setRecordarme}}>
-      {children}
+    <AuthContext.Provider
+      value={{
+        currentUser,
+        setCurrentUser,
+        login, logout,
+        loginGoogle,
+        error,
+        setError,
+        recordarme,
+        setRecordarme,
+        avisoActual,
+        setAvisoActual,
+        chatActual,
+        setChatActual,
+        avisosDisponibles,
+        setAvisosDisponibles
+      }}>
+        {children}
     </AuthContext.Provider>
   );
 };

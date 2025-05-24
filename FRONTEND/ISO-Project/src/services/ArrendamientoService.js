@@ -150,7 +150,7 @@ export class ArrendamientosService {
 
 
     //METODOS DE MENSAJERIA
-    static joinChat(ownerId, jsonChat){
+    static searchChat(ownerId, jsonChat){
         return axios.post(`${backend}/BUSCAR-CHAT/${ownerId}`, jsonChat,{
             headers: {
                 "Content-Type": "application/json"
@@ -162,12 +162,12 @@ export class ArrendamientosService {
         return axios.post(`${backend}/LISTAR-CHATS/${userName}`);
     }
 
-    static showMessages(reciverId, senderUserName){
-        return axios.post(`${backend}/LISTAR-MENSAJES/${reciverId}/${senderUserName}`);
+    static showMessages(participant1Id, participant2UserName, participant1UserName){
+        return axios.post(`${backend}/LISTAR-MENSAJES/${participant1Id}/${participant2UserName}/${participant1UserName}`);
     }
 
-    static createMessage(jsonMessage){
-        return axios.post(`${backend}/CREAR-MENSAJE`, jsonMessage, {
+    static createMessage(ownerId, jsonMessage){
+        return axios.post(`${backend}/CREAR-MENSAJE/${ownerId}`, jsonMessage, {
             headers:{
                 "Content-Type": "application/json"
             }

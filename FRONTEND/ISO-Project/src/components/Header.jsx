@@ -104,9 +104,6 @@ const Header = () => {
                         <li>
                           <button onClick={() => navigate("/todos-los-avisos")}>Todos los Avisos</button>
                         </li>
-                        {/* <li>
-                          <button onClick={() => navigate("/historial")}>Historial</button>
-                        </li> */}
                       </>
                     )}
                     <li>

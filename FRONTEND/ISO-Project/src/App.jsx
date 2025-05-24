@@ -19,7 +19,7 @@ import { AvisoReports } from "./pages/AvisoReports.jsx";
 import History from "./pages/History.jsx";
 import PeticionEdicion from "./pages/PeticionEdicion.jsx";
 import DesactivarAviso from "./pages/DesactivarAviso.jsx";
-import Contact from "./pages/Contact.jsx";
+import Contact from "./Pages/Contact.jsx";
 import { ChatList } from "./pages/ChatList.jsx";
 import Header from "./components/Header.jsx";
 import Footer from "./components/Footer.jsx";

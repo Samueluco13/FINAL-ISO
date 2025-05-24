@@ -1,11 +1,14 @@
-import React, { useState, useEffect } from "react";
+import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import AvisoCard from "../components/AvisoCard.jsx";
 import { ArrendamientosService } from "../services/ArrendamientoService.js";
+import { AuthContext } from "../context/AuthContext.jsx";
+import { useContext } from "react";
 import "../styles/avisos.css";
 
 const Home = () => {
   const navigate = useNavigate();
+  const {setAvisosDisponibles} = useContext(AuthContext);
   const [filteredAvisos, setFilteredAvisos] = useState([]);
   const [filters, setFilters] = useState({ nombre: "", tipo: "", disponibilidad: "", costo: "" });
 
@@ -25,6 +28,8 @@ const Home = () => {
         const disponibles = await ArrendamientosService.showAvailables();
         console.log("Lo que devuelve: ", disponibles);
         console.log("Avisos disponibles: ", disponibles.data)
+
+        setAvisosDisponibles(disponibles.data);
 
         const avisosFiltrados = disponibles.data.filter((aviso) => {
           return (

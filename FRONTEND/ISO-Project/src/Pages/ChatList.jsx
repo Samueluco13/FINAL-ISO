@@ -6,7 +6,7 @@ import { Popup } from '../components/Popup'
 import { ArrendamientosService } from "../services/ArrendamientoService.js";
 
 export const ChatList = () => {
-    const {currentUser} = useContext(AuthContext)
+    const {currentUser, chatActual, setChatActual} = useContext(AuthContext)
     const navigate = useNavigate();
 
     const [chatsList, setChatsList] = useState(JSON.parse(localStorage.getItem("chats")) || []);
@@ -27,23 +27,6 @@ export const ChatList = () => {
             }
         }
         miLista();
-
-
-
-
-        const avisos = JSON.parse(localStorage.getItem("avisos")) || [];
-        //A los chats los filtra por el id del current user
-        const filtrados = chatsList.filter(chat => chat.participantes.includes(currentUser.id)).map(chat => {
-            const aviso = avisos.find(a => a.id === chat.avisoId); //Mapea los avisos que coincidan su id con la referencia que hay hacia el chat
-            const otroParticipanteId = chat.participantes.find(id => id !== currentUser.id); //Busca el id de la otra persona que participa en el chat
-            return {
-                ...chat,
-                tituloAviso: aviso?.titulo || "Aviso no encontrado",
-                otroUsuario: otroParticipanteId,
-                ultimoMensaje: chat.msg.length > 0 ? chat.msg[chat.msg.length - 1] : null
-            };
-        });
-        setChatsList(filtrados);
     }, [currentUser.id]);
 
     const handleDelete = (id) => {
@@ -54,6 +37,13 @@ export const ChatList = () => {
         setMostrarPopup(false)
     }
 
+    const handleOnChat = (chat) => {
+        setChatActual(chat)
+        navigate(`/chat-aviso?id=${chat.id}`)
+    }
+
+
+    console.log("ESTE ES -- ", chatActual)
     return (
         <div className="dashboard">
             <h2>Bandeja de Entrada</h2>
@@ -65,7 +55,7 @@ export const ChatList = () => {
                     <div key={chat.id}>
                         <ChatCard
                         chat={chat}
-                        onClick={()=> navigate(`/chat-aviso?id=${chat.id}`)}
+                        onChat={handleOnChat}
                         onDelete={() => setMostrarPopup(true)}
                         />
                         {mostrarPopup && (
