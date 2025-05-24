@@ -10,6 +10,7 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @NoArgsConstructor
 public class Mensajes {
+    private String nombreUsuario;
     private String contenido;
     private Date fecha;
     private Date hora;
