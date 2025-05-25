@@ -21,7 +21,7 @@ public class NotificacionesServiceImp implements INotificacionesService{
 
     @Override
     public List<NotificacionesModel> listarNotificaciones(String nombreUsuarioReceptor) {
-        List<NotificacionesModel> listaDeNotificaciones = notificacionesRepositorio.findByNombreUsuarioReceptor(nombreUsuarioReceptor);
+        List<NotificacionesModel> listaDeNotificaciones = notificacionesRepositorio.findByArchivadoAndNombreUsuarioReceptor(false,nombreUsuarioReceptor);
         return listaDeNotificaciones;
     }
 
