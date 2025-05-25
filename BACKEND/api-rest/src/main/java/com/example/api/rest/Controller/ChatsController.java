@@ -7,6 +7,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -41,5 +42,11 @@ public class ChatsController {
     @PostMapping("/BUSCAR-CHAT/{idUsuario}")
     public ResponseEntity<ChatsModel> crearChat(@PathVariable ObjectId idUsuario, @RequestBody ChatsModel chat){
         return new ResponseEntity<ChatsModel>(chatsServicio.crearChat(idUsuario,chat), HttpStatus.OK);
+    }
+
+    @PutMapping("/VISTO/{idParticipante1}/{nombreParticipante2}/{nombreParticipante1}")
+    public ResponseEntity<String> hacerVisto(@PathVariable ObjectId idParticipante1,@PathVariable String nombreParticipante2, @PathVariable String nombreParticipante1){
+        chatsServicio.visto(idParticipante1, nombreParticipante2, nombreParticipante1);
+        return new ResponseEntity<String>("Ok", HttpStatus.OK);
     }
 }

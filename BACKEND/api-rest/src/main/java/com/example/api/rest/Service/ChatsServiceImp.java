@@ -102,4 +102,25 @@ public class ChatsServiceImp implements IChatsService{
         return chatEncontrado;
     }
 
+    @Override
+    public void visto(ObjectId idUsuarioPropietario, String nombreUsuarioRemitente, String nombreParticipante1) {
+        UsuarioModel usuarioPorId = buscarUsuario(idUsuarioPropietario);
+        UsuarioModel usuarioPorNombre = buscarUsuarioPorNombre(nombreParticipante1);
+        List<String> participantes = new ArrayList<>();
+        if(usuarioPorNombre == null){
+            participantes.add(usuarioPorId.getUserName());
+            participantes.add(nombreUsuarioRemitente);
+            ChatsModel chatEncontrado = buscarChat(participantes);
+            for(int i = 0; i < chatEncontrado.getMensajes().size(); i++){
+                chatEncontrado.getMensajes().get(i).setVisto(true);
+            }   
+        }
+        participantes.add(nombreUsuarioRemitente);
+        participantes.add(nombreParticipante1);
+        ChatsModel chatEncontrado2 = buscarChat(participantes);
+        for(int i = 0; i < chatEncontrado2.getMensajes().size(); i++){
+            chatEncontrado2.getMensajes().get(i).setVisto(true);
+        }   
+    }
+
 }
