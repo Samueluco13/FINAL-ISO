@@ -51,8 +51,8 @@ public class ChatsController {
         return new ResponseEntity<String>("Ok", HttpStatus.OK);
     }
 
-    @DeleteMapping("/ELIMINAR-CHAT/{idParticipante1}/{nombreParticipante2}/{nombreParticipante1}")
-    public ResponseEntity<String> eliminarChat(@PathVariable ObjectId idParticipante1,@PathVariable String nombreParticipante2, @PathVariable String nombreParticipante1){
-        return new ResponseEntity<String>(chatsServicio.eliminarChat(idParticipante1, nombreParticipante2, nombreParticipante1),HttpStatus.OK);
+    @DeleteMapping("/ELIMINAR-CHAT/{id}")
+    public ResponseEntity<String> eliminarChat(@PathVariable ObjectId id){
+        return new ResponseEntity<String>(chatsServicio.eliminarChat(id),HttpStatus.OK);
     }
 }

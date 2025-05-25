@@ -12,9 +12,10 @@ public interface IChatsService {
     public void mensajes(ObjectId idUsuarioDestinatario, ChatsModel mensaje);
     public List<ChatsModel> listarChats(String nombreUsuarioDestinatario);
     public UsuarioModel buscarUsuario(ObjectId idUsuarioPropietario);
+    public ChatsModel buscarChatPorId(ObjectId id);
     public ChatsModel buscarChat(List<String> participantes);
     public ChatsModel crearChat(ObjectId idUsuarioPropietario, ChatsModel chat);
     public UsuarioModel buscarUsuarioPorNombre(String nombre);
     public void visto(ObjectId idUsuarioPropietario, String nombreUsuarioRemitente, String nombreParticipante1);
-    public String eliminarChat(ObjectId idUsuarioPropietario, String nombreUsuarioRemitente, String nombreParticipante1);
+    public String eliminarChat(ObjectId idChat);
 }
