@@ -15,6 +15,12 @@ const Contact = () => {
   const [mensaje, setMensaje] = useState("");
   const [submitCounter, setSubmitCounter] = useState(0);
   const [listaMensajes, setListaMensajes] = useState([]);
+  // const [visto, setVisto] = useState(false);
+
+
+  // useEffect(()=> {
+  //   listaMensajes.filter(mensaje => mensaje.nombreUsuario !== currentUser.name).forEach(m => m.visto = true);
+  // }, [currentUser])
 
 
   useEffect(() => {
@@ -48,6 +54,8 @@ const Contact = () => {
     }
     listarMensajes()
     console.log(submitCounter);
+    
+    listaMensajes.filter(mensaje => mensaje.nombreUsuario !== currentUser.name).forEach(m => m.visto = true);
   }, [currentUser, chatId, navigate, submitCounter]);
 
 
@@ -105,6 +113,7 @@ const Contact = () => {
           <div key={index} className={`mensaje ${msg.nombreUsuario === currentUser.userName ? "enviado" : "recibido"}`} >
             <p>{msg.contenido}</p>
             <small>{new Date(msg.fecha).toLocaleString()}</small>
+            <small>{}</small>
           </div>
         ))}
         {/* {chat && chat.msg.map((msg) => (

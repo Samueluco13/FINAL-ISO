@@ -12,6 +12,7 @@ const AvisosPropios = () => {
   const [avisosPropios, setAvisosPropios] = useState([]);
   const [mostrarPopup,setMostrarPopup] = useState(false);
   const [popupVerificacion, setPopupVerificacion] = useState(false);
+  const [reload, setReload] = useState(false);
   const [filters, setFilters] = useState({ nombre: "", tipo: "", disponibilidad: "", costo: "" });
   
   const handleFilterChange = (e) => {
@@ -53,7 +54,7 @@ const AvisosPropios = () => {
       }
     }
     mostrarPropios()
-  }, [avisosPropios, navigate, filters]);
+  }, [navigate, filters]);
   console.log(avisosPropios);
 
 
@@ -63,6 +64,7 @@ const AvisosPropios = () => {
       const deleted = await ArrendamientosService.deletePublication(nombre);
       console.log("Ya no", deleted);
       console.log("Eliminado: ", deleted.data);
+      setReload(!reload);
     }catch(error){
       console.log(error.response?.data || error.message);
     }

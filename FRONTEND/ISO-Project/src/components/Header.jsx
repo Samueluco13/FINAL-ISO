@@ -2,6 +2,7 @@ import React, { useState, useContext, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { AuthContext } from "../context/AuthContext.jsx";
 import NotificationBell from "./NotificationBell.jsx";
+import { IoArchive } from "react-icons/io5";
 import { NotificationCard } from "./NotificationCard.jsx";
 import {ArrendamientosService} from "../services/ArrendamientoService.js";
 import "../styles/header.css";
@@ -11,7 +12,7 @@ const Header = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [isNotificationOpen, setIsNotificationOpen] = useState(false);
   const [notifications, setNotifications] = useState([]);
-  const [count, setCount] = useState(0);
+  const [reload, setReload] = useState(false);
   const navigate = useNavigate();
 
 
@@ -21,15 +22,15 @@ const Header = () => {
         const notis = await ArrendamientosService.listNotifications(currentUser.userName);
         console.log("Lo que devuelve: ", notis);
         console.log("Notificaciones: ", notis.data);
-        setCount(notis.data.length);
         setNotifications(notis.data.reverse());
+        console.log(reload);
       } catch (error) {
         console.log(error.notis?.data);
         console.log(error.message);
       }
     }
     mostrarNotis()
-  },[navigate, currentUser]);
+  },[navigate, currentUser, reload]);
 
   const toggleMenu = () => {
     setIsNotificationOpen(false);
@@ -46,6 +47,25 @@ const Header = () => {
     navigate("/");
   };
 
+  const handleDeleteNotification = async (id) => {
+    try{
+      await ArrendamientosService.deleteNotification(id);
+      setReload(!reload);
+    }catch (error){
+      console.log(error.message)
+    }
+  }
+  
+  const handleArchiveNotification = async (id) => {
+    try{
+      const archivar = await ArrendamientosService.archiveNotification(id);
+      console.log(archivar);
+      console.log(archivar.data);
+      setReload(!reload);
+    }catch (error){
+      console.log(error.message)
+    }
+  }
   return (
     <header className="header">
       <div className="header-container">
@@ -112,16 +132,19 @@ const Header = () => {
                   </ul>
                 )}
               </div>
-              <NotificationBell onClick={toggleNotification} count={count} />
+              <NotificationBell onClick={toggleNotification} count={notifications.length} />
               {isNotificationOpen && (
                 <ul className="notification-dropdown">
+                  <p className="no-notification archived" onClick={() => navigate("/mis-archivadas")} ><IoArchive/> Archivadas</p>
                   {notifications.length === 0 ? (
-                    <p>No tienes notificaciones</p>
+                    <p className="no-notification" >No tienes notificaciones</p>
                   ) : (
                     notifications.map((notification) => (
                       <li key={notification.id} className="noti-item">
                         <NotificationCard
                         notification={notification}
+                        onDeleteNoti={handleDeleteNotification}
+                        onArchiveteNoti={handleArchiveNotification}
                         />
                       </li>
                     ))

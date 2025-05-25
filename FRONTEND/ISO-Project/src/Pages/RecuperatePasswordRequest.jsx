@@ -1,6 +1,6 @@
 import React, {useState} from 'react'
 import { useNavigate } from 'react-router-dom';
-import ButtonForm from '../components/ButtonForm';
+import ButtonForm from '../components/ButtonForm.jsx';
 import { ArrendamientosService } from '../services/ArrendamientoService.js';
 import { Popup } from '../components/Popup.jsx';
 import ButtonUG from '../components/ButtonUG.jsx';
