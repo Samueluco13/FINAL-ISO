@@ -16,4 +16,5 @@ public interface IChatsService {
     public ChatsModel crearChat(ObjectId idUsuarioPropietario, ChatsModel chat);
     public UsuarioModel buscarUsuarioPorNombre(String nombre);
     public void visto(ObjectId idUsuarioPropietario, String nombreUsuarioRemitente, String nombreParticipante1);
+    public String eliminarChat(ObjectId idUsuarioPropietario, String nombreUsuarioRemitente, String nombreParticipante1);
 }

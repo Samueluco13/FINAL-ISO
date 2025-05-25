@@ -123,4 +123,22 @@ public class ChatsServiceImp implements IChatsService{
         }   
     }
 
+    @Override
+    public String eliminarChat(ObjectId idUsuarioPropietario, String nombreUsuarioRemitente,String nombreParticipante1) {
+        UsuarioModel usuarioPorId = buscarUsuario(idUsuarioPropietario);
+        UsuarioModel usuarioPorNombre = buscarUsuarioPorNombre(nombreParticipante1);
+        List<String> participantes = new ArrayList<>();
+        if(usuarioPorNombre == null){
+            participantes.add(usuarioPorId.getUserName());
+            participantes.add(nombreUsuarioRemitente);
+            ChatsModel chatEncontrado = buscarChat(participantes);
+            chatsRepositorio.delete(chatEncontrado);
+        }
+        participantes.add(nombreUsuarioRemitente);
+        participantes.add(nombreParticipante1);
+        ChatsModel chatEncontrado2 = buscarChat(participantes);
+        chatsRepositorio.delete(chatEncontrado2);
+        return "Chat eliminado con exito";
+    }
+
 }

@@ -5,6 +5,7 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
@@ -48,5 +49,10 @@ public class ChatsController {
     public ResponseEntity<String> hacerVisto(@PathVariable ObjectId idParticipante1,@PathVariable String nombreParticipante2, @PathVariable String nombreParticipante1){
         chatsServicio.visto(idParticipante1, nombreParticipante2, nombreParticipante1);
         return new ResponseEntity<String>("Ok", HttpStatus.OK);
+    }
+
+    @DeleteMapping("/ELIMINAR-CHAT/{idParticipante1}/{nombreParticipante2}/{nombreParticipante1}")
+    public ResponseEntity<String> eliminarChat(@PathVariable ObjectId idParticipante1,@PathVariable String nombreParticipante2, @PathVariable String nombreParticipante1){
+        return new ResponseEntity<String>(chatsServicio.eliminarChat(idParticipante1, nombreParticipante2, nombreParticipante1),HttpStatus.OK);
     }
 }
