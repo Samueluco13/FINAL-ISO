@@ -148,6 +148,18 @@ export class ArrendamientosService {
         return axios.post(`${backend}/LISTAR-NOTIFICACIONES/${userName}`);
     }
 
+    static deleteNotification(notificationId){
+        return axios.delete(`${backend}/ELIMINAR-NOTIFICACION/${notificationId}`);
+    }
+    
+    static archiveNotification(notificationId){
+        return axios.post(`${backend}/ARCHIVAR-NOTIFICACION/${notificationId}`);
+    }
+
+    static listArchivedNotifications(boolean, userName){
+        return axios.post(`${backend}/LISTAR-NOTIFICACIONES-ARCHIVADAS/${boolean}/${userName}`)
+    }
+
 
     //METODOS DE MENSAJERIA
     static searchChat(ownerId, jsonChat){

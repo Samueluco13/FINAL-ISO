@@ -1,4 +1,3 @@
-import React from "react";
 import { Route, Routes } from "react-router-dom";
 import CreateAviso from "./pages/CreateAviso.jsx";
 import EditAviso from "./pages/EditAviso.jsx";
@@ -19,8 +18,9 @@ import { AvisoReports } from "./pages/AvisoReports.jsx";
 import History from "./pages/History.jsx";
 import PeticionEdicion from "./pages/PeticionEdicion.jsx";
 import DesactivarAviso from "./pages/DesactivarAviso.jsx";
-import Contact from "./Pages/Contact.jsx";
+import Contact from "./pages/Contact.jsx";
 import { ChatList } from "./pages/ChatList.jsx";
+import {ArchivedNotifications} from "./pages/ArchivedNotifications.jsx"
 import Header from "./components/Header.jsx";
 import Footer from "./components/Footer.jsx";
 import ProtectedRoute from "./components/ProtectedRoute.jsx";
@@ -154,6 +154,14 @@ const App = () => (
           element={
             <ProtectedRoute allowedRoles={["propietario"]}>
               <AvisosPropios />
+            </ProtectedRoute>
+          }
+        />
+        <Route
+          path="/mis-archivadas"
+          element={
+            <ProtectedRoute>
+              <ArchivedNotifications />
             </ProtectedRoute>
           }
         />

@@ -130,10 +130,6 @@
     justify-content: center;
 }
 
-/* .noti-item{
-    border-bottom: 1px solid #5c5c5cbd;
-} */
-
 .noti-item:last-child {
     border-bottom: none;
     border-bottom-left-radius: 5px;
@@ -155,8 +151,15 @@
 }
 
 .notification-dropdown p {
-    /* padding: 10px; */
     margin: 0;
     font-size: 14px;
     color: #2c3e50;
+}
+
+.no-notification{
+    padding: 10px;
+}
+
+.no-notification.archived{
+    cursor: pointer;
 }

@@ -1,8 +1,8 @@
 import {useContext, useState, useEffect} from 'react'
-import { AuthContext } from '../context/AuthContext'
+import { AuthContext } from '../context/AuthContext.jsx'
 import { useNavigate } from 'react-router-dom'
-import { ChatCard } from '../components/ChatCard'
-import { Popup } from '../components/Popup'
+import { ChatCard } from '../components/ChatCard.jsx'
+import { Popup } from '../components/Popup.jsx'
 import { ArrendamientosService } from "../services/ArrendamientoService.js";
 
 export const ChatList = () => {
