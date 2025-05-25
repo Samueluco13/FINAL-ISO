@@ -113,14 +113,16 @@ public class ChatsServiceImp implements IChatsService{
             ChatsModel chatEncontrado = buscarChat(participantes);
             for(int i = 0; i < chatEncontrado.getMensajes().size(); i++){
                 chatEncontrado.getMensajes().get(i).setVisto(true);
-            }   
+            }  
+            chatsRepositorio.save(chatEncontrado);
         }
         participantes.add(nombreUsuarioRemitente);
         participantes.add(nombreParticipante1);
         ChatsModel chatEncontrado2 = buscarChat(participantes);
         for(int i = 0; i < chatEncontrado2.getMensajes().size(); i++){
             chatEncontrado2.getMensajes().get(i).setVisto(true);
-        }   
+        }  
+        chatsRepositorio.save(chatEncontrado2);
     }
 
     @Override
