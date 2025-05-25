@@ -215,7 +215,7 @@ public class UsuarioServiceImp implements IUsuarioService{
             comentario = new Comentarios(idUsuarioComenta, contenido, fecha);
             UsuarioModel usuarioDueñoPropiedad = buscarUsuario(propiedadEncontrada.getIdUsuarioPropietario());
             UsuarioModel usuarioComenta = buscarUsuario(idUsuarioComenta);
-            notificacion = new NotificacionesModel(enumsNotificaciones.aviso, fecha, usuarioComenta.getUserName(), "El usuario: " + idUsuarioComenta + " ha hecho un comentario a tu publicacion.", usuarioDueñoPropiedad.getUserName());
+            notificacion = new NotificacionesModel(enumsNotificaciones.aviso, fecha, usuarioComenta.getUserName(), "El usuario: " + idUsuarioComenta + " ha hecho un comentario a tu publicacion.", usuarioDueñoPropiedad.getUserName(), false);
         }
         
         propiedadEncontrada.getComentarios().add(comentario); 

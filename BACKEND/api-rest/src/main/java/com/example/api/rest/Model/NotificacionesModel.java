@@ -26,8 +26,9 @@ public class NotificacionesModel {
     private String nombreUsuarioCreador;
     private String contenido;
     private String nombreUsuarioReceptor;
+    private Boolean archivado;
 
-    public NotificacionesModel(enumsNotificaciones tipo, Date fecha, String nombreUsuarioCreador, String contenido, String nombreUsuarioReceptor){
+    public NotificacionesModel(enumsNotificaciones tipo, Date fecha, String nombreUsuarioCreador, String contenido, String nombreUsuarioReceptor, Boolean archivado){
         this.tipo = tipo;
         this.fecha = fecha;
         this.nombreUsuarioCreador = nombreUsuarioCreador;
@@ -35,7 +36,7 @@ public class NotificacionesModel {
         this.nombreUsuarioReceptor = nombreUsuarioReceptor;
     }
 
-    public NotificacionesModel(enumsNotificaciones tipo, Date fecha, String contenido, String nombreUsuarioReceptor){
+    public NotificacionesModel(enumsNotificaciones tipo, Date fecha, String contenido, String nombreUsuarioReceptor, Boolean archivado){
         this.tipo = tipo;
         this.fecha = fecha;
         this.contenido = contenido;

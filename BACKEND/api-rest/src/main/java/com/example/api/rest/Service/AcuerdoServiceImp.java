@@ -146,7 +146,7 @@ public class AcuerdoServiceImp implements IAcuerdoService {
             acuerdoEncontrado.getCalificacionEspacio().add(acuerdoCalificacion.getCalificacionEspacio().get(i));
             propiedadEncontrada.setPromedioCalificacion(acuerdoCalificacion.getCalificacionEspacio().get(i).getCalificacion());
             Date fechaActual = new Date();
-            NotificacionesModel notificacion = new NotificacionesModel(enumsNotificaciones.calificacion, fechaActual, usuarioEncontradoCreador.getNombre(), "El usuario con nombre: " + usuarioEncontradoCreador.getNombre() + " ,ha hecho una calificacion a la propiedad: " + propiedadEncontrada.getNombre(), usuarioEncontradoDestinatario.getNombre());
+            NotificacionesModel notificacion = new NotificacionesModel(enumsNotificaciones.calificacion, fechaActual, usuarioEncontradoCreador.getNombre(), "El usuario con nombre: " + usuarioEncontradoCreador.getNombre() + " ,ha hecho una calificacion a la propiedad: " + propiedadEncontrada.getNombre(), usuarioEncontradoDestinatario.getNombre(), false);
             propiedadesRepositorio.save(propiedadEncontrada);
             notificacionesRepositorio.save(notificacion);
             acuerdoRepositorio.save(acuerdoEncontrado);
@@ -166,7 +166,7 @@ public class AcuerdoServiceImp implements IAcuerdoService {
             acuerdoEncontrado.getCalificacionArrendatario().add(acuerdoCalificacion.getCalificacionArrendatario().get(i));
             usuarioInteresado.setPromedioCalificacion(acuerdoCalificacion.getCalificacionArrendatario().get(i).getCalificacion());
             Date fechaActual = new Date();
-            NotificacionesModel notificacion = new NotificacionesModel(enumsNotificaciones.calificacion, fechaActual, usuarioPropietario.getNombre(), "El usuario con nombre: " + usuarioPropietario.getNombre() + " ,ha hecho una calificacion hacia ti", usuarioInteresado.getNombre());
+            NotificacionesModel notificacion = new NotificacionesModel(enumsNotificaciones.calificacion, fechaActual, usuarioPropietario.getNombre(), "El usuario con nombre: " + usuarioPropietario.getNombre() + " ,ha hecho una calificacion hacia ti", usuarioInteresado.getNombre(), false);
             acuerdoRepositorio.save(acuerdoEncontrado);
             usuarioRepositorio.save(usuarioInteresado);
             notificacionesRepositorio.save(notificacion);

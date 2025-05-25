@@ -14,4 +14,5 @@ public class Mensajes {
     private String contenido;
     private Date fecha;
     private Date hora;
+    private Boolean visto;  
 }

@@ -73,8 +73,8 @@ public class PropiedadesServiceImp implements IPropiedadesService {
         }
         Date fechaActual = new Date();
         UsuarioModel usuarioEncontrado = buscarUsuarioPorId(propiedad.getIdUsuarioPropietario());
-        NotificacionesModel notificacion = new NotificacionesModel(enumsNotificaciones.aviso, fechaActual, "Haz creado una nueva publicacion llamada " + propiedad.getNombre(),  usuarioEncontrado.getUserName());
-        NotificacionesModel notificacionParaAdministrador = new NotificacionesModel(enumsNotificaciones.aviso, fechaActual, "El usuario" + usuarioEncontrado.getUserName() + " ,ha solicitado crear una publicacion con nombre: " + propiedad.getNombre(), "Pepe");
+        NotificacionesModel notificacion = new NotificacionesModel(enumsNotificaciones.aviso, fechaActual, "Haz creado una nueva publicacion llamada " + propiedad.getNombre(),  usuarioEncontrado.getUserName(), false);
+        NotificacionesModel notificacionParaAdministrador = new NotificacionesModel(enumsNotificaciones.aviso, fechaActual, "El usuario" + usuarioEncontrado.getUserName() + " ,ha solicitado crear una publicacion con nombre: " + propiedad.getNombre(), "Pepe", false);
         propiedadesRepositorio.save(propiedad);
         notificacionesRepositorio.save(notificacion);
         notificacionesRepositorio.save(notificacionParaAdministrador);
@@ -124,7 +124,7 @@ public class PropiedadesServiceImp implements IPropiedadesService {
 
         Date fechaActual = new Date();
         UsuarioModel usuarioDueño = buscarUsuarioPorId(propiedadEncontrada.getIdUsuarioPropietario());
-        NotificacionesModel notificacionParaAdministrador = new NotificacionesModel(enumsNotificaciones.aviso, fechaActual, "El usuario" + usuarioDueño.getUserName() +  ", ha solicitado una actualizacion a la publicacion con nombre: " + nombre, "Pepe");
+        NotificacionesModel notificacionParaAdministrador = new NotificacionesModel(enumsNotificaciones.aviso, fechaActual, "El usuario" + usuarioDueño.getUserName() +  ", ha solicitado una actualizacion a la publicacion con nombre: " + nombre, "Pepe", false);
 
         notificacionesRepositorio.save(notificacionParaAdministrador);
         propiedadesRepositorio.save(propiedadEncontrada);
@@ -154,8 +154,8 @@ public class PropiedadesServiceImp implements IPropiedadesService {
             UsuarioModel usuarioCreadorEncontrado = buscarUsuarioPorId(reporte.getIdUsuario());
             UsuarioModel usuarioPropietarioReportado = buscarUsuarioPorId(propiedad.getIdUsuarioPropietario());
             PropiedadesModel propiedadReportadaEncontrada = buscarPropiedadPorId(reporte.getIdPublicacion());
-            NotificacionesModel notificacion = new NotificacionesModel(enumsNotificaciones.aviso, reporte.getFecha(), usuarioCreadorEncontrado.getUserName(), "El usuario: " + usuarioCreadorEncontrado.getUserName() + " ha reportado la publicacion con el nombre: " + propiedadReportadaEncontrada.getNombre() + ".", usuarioPropietarioReportado.getUserName());
-            NotificacionesModel notificacionParaAdministrador = new NotificacionesModel(enumsNotificaciones.aviso, reporte.getFecha(), "El usuario" + usuarioCreadorEncontrado.getUserName() +  ", ha reportado la publicacion con nombre: " + nombre, "Pepe");
+            NotificacionesModel notificacion = new NotificacionesModel(enumsNotificaciones.aviso, reporte.getFecha(), usuarioCreadorEncontrado.getUserName(), "El usuario: " + usuarioCreadorEncontrado.getUserName() + " ha reportado la publicacion con el nombre: " + propiedadReportadaEncontrada.getNombre() + ".", usuarioPropietarioReportado.getUserName(), false);
+            NotificacionesModel notificacionParaAdministrador = new NotificacionesModel(enumsNotificaciones.aviso, reporte.getFecha(), "El usuario" + usuarioCreadorEncontrado.getUserName() +  ", ha reportado la publicacion con nombre: " + nombre, "Pepe", false);
             notificacionesRepositorio.save(notificacionParaAdministrador);
             notificacionesRepositorio.save(notificacion);
             return "La propiedad ha sido reportada con éxito.";  
@@ -245,7 +245,7 @@ public class PropiedadesServiceImp implements IPropiedadesService {
             publicacion.setEstado(enumsEstadoPropiedad.desactivado);
             propiedadesRepositorio.save(publicacion);
             Date fechaRealizacion = new Date();
-            NotificacionesModel notificacion = new NotificacionesModel(enumsNotificaciones.mensaje, fechaRealizacion, "ADMINISTRACION", desicion.getDesicion() , usuarioPropiedad.getUserName());
+            NotificacionesModel notificacion = new NotificacionesModel(enumsNotificaciones.mensaje, fechaRealizacion, "ADMINISTRACION", desicion.getDesicion() , usuarioPropiedad.getUserName(), false);
             notificacionesRepositorio.save(notificacion);
             propiedadesRepositorio.save(publicacion);
             reportePublicacionRepositorio.delete(reporte);
@@ -254,7 +254,7 @@ public class PropiedadesServiceImp implements IPropiedadesService {
             publicacion.setEstado(enumsEstadoPropiedad.activo);
             propiedadesRepositorio.save(publicacion);
             Date fechaRealizacion = new Date();
-            NotificacionesModel notificacion = new NotificacionesModel(enumsNotificaciones.mensaje, fechaRealizacion, "ADMINISTRACION", desicion.getDesicion() , reporte.getNombreUsuarioReporte());
+            NotificacionesModel notificacion = new NotificacionesModel(enumsNotificaciones.mensaje, fechaRealizacion, "ADMINISTRACION", desicion.getDesicion() , reporte.getNombreUsuarioReporte(), false);
             notificacionesRepositorio.save(notificacion);
             reportePublicacionRepositorio.delete(reporte);
         }
