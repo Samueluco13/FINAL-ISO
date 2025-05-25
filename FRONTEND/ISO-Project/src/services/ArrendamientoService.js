@@ -177,13 +177,21 @@ export class ArrendamientosService {
     static showMessages(participant1Id, participant2UserName, participant1UserName){
         return axios.post(`${backend}/LISTAR-MENSAJES/${participant1Id}/${participant2UserName}/${participant1UserName}`);
     }
-
+    
     static createMessage(ownerId, jsonMessage){
         return axios.post(`${backend}/CREAR-MENSAJE/${ownerId}`, jsonMessage, {
             headers:{
                 "Content-Type": "application/json"
             }
         })
+    }
+    
+    static seenMessages(participant1Id, participant2UserName, participant1UserName){
+        return axios.put(`${backend}/VISTO/${participant1Id}/${participant2UserName}/${participant1UserName}`);
+    }
+    
+    static deleteChat(chatId){
+        return axios.delete(`${backend}/ELIMINAR-CHAT/${chatId}`);
     }
     
 }

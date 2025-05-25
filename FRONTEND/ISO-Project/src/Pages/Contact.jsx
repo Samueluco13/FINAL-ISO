@@ -2,6 +2,7 @@ import { useState, useEffect, useContext } from "react";
 import { useNavigate, useLocation } from "react-router-dom";
 import { AuthContext } from "../context/AuthContext.jsx";
 import { ArrendamientosService } from "../services/ArrendamientoService.js";
+import { IoCheckmarkDone } from "react-icons/io5";
 import "../styles/chat.css";
 
 const Contact = () => {
@@ -10,18 +11,9 @@ const Contact = () => {
   const location = useLocation();
   const query = new URLSearchParams(location.search);
   const chatId = query.get("id");
-  // const [chat, setChat] = useState(null);
-  // const [aviso, setAviso] = useState(null);
   const [mensaje, setMensaje] = useState("");
   const [submitCounter, setSubmitCounter] = useState(0);
   const [listaMensajes, setListaMensajes] = useState([]);
-  // const [visto, setVisto] = useState(false);
-
-
-  // useEffect(()=> {
-  //   listaMensajes.filter(mensaje => mensaje.nombreUsuario !== currentUser.name).forEach(m => m.visto = true);
-  // }, [currentUser])
-
 
   useEffect(() => {
     const buscarAviso = () => {
@@ -54,21 +46,42 @@ const Contact = () => {
     }
     listarMensajes()
     console.log(submitCounter);
-    
-    listaMensajes.filter(mensaje => mensaje.nombreUsuario !== currentUser.name).forEach(m => m.visto = true);
+
+
+    const mensajesEnVisto = async () => {
+      if(chatActual.participantes[0] === currentUser.userName){
+        try{
+          const vistos = await ArrendamientosService.seenMessages(avisoActual.idUsuarioPropietario, currentUser.userName, chatActual.participantes[1]);
+          console.log(vistos)
+          console.log("Los vistos: ", vistos.data)
+        }catch(error){
+          console.log(error.vistos?.data);
+          console.log(error.message);
+          console.log(error);
+        }
+      }else if (chatActual.participantes[1] === currentUser.userName){
+        try{
+          const vistos = await ArrendamientosService.seenMessages(currentUser.id, chatActual.participantes[0], currentUser.userName);
+          console.log(vistos)
+          console.log("Los vistos: ", vistos.data)
+        }catch(error){
+          console.log(error.vistos?.data);
+          console.log(error.message);
+          console.log(error);
+        }
+      }
+    }
+    mensajesEnVisto()
   }, [currentUser, chatId, navigate, submitCounter]);
-
-
-  console.log(chatActual)
-  console.log(avisoActual)
-  // const ahora = new Date();
+  
   const newMessage = {
     participantes: [chatActual.participantes[0]],
     mensajes: [{
       nombreUsuario: currentUser.userName,
       contenido: mensaje,
       fecha: Date.now(),
-      hora: Date.now()
+      hora: Date.now(),
+      visto: false
     }]
   };
   
@@ -112,17 +125,19 @@ const Contact = () => {
         {listaMensajes && listaMensajes.map((msg, index) => (
           <div key={index} className={`mensaje ${msg.nombreUsuario === currentUser.userName ? "enviado" : "recibido"}`} >
             <p>{msg.contenido}</p>
-            <small>{new Date(msg.fecha).toLocaleString()}</small>
-            <small>{}</small>
+            <small>
+              {new Date(msg.fecha).toLocaleString('es-CO',{
+                hour12: false,
+                year: 'numeric',
+                month: '2-digit',
+                day: '2-digit',
+                hour: '2-digit',
+                minute: '2-digit'
+              })}
+              <IoCheckmarkDone className={msg.visto ? "seen" : null}/>
+            </small>
           </div>
         ))}
-        {/* {chat && chat.msg.map((msg) => (
-          <div key={msg.id} className={`mensaje ${msg.autorId === currentUser.id ? "enviado" : "recibido"}`}>
-            <p>{msg.mensajes}</p>
-            <small>{new Date(msg.fecha).toLocaleString()}</small>
-            {msg.leidoPor.includes(aviso.otroUsuarioId) && <span>✓ Leído</span>}
-          </div>
-        ))} */}
       </div>
       <form onSubmit={handleSubmit}>
         <input
@@ -133,7 +148,7 @@ const Contact = () => {
         />
         <button className="btn btn-primary" type="submit">Enviar</button>
       </form>
-</div>
+    </div>
   );
 };
 

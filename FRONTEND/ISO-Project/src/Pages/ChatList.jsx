@@ -6,11 +6,11 @@ import { Popup } from '../components/Popup.jsx'
 import { ArrendamientosService } from "../services/ArrendamientoService.js";
 
 export const ChatList = () => {
-    const {currentUser, chatActual, setChatActual} = useContext(AuthContext)
+    const {currentUser, chatActual, setChatActual} = useContext(AuthContext);
     const navigate = useNavigate();
 
     const [chatsList, setChatsList] = useState(JSON.parse(localStorage.getItem("chats")) || []);
-    const [mostrarPopup, setMostrarPopup] = useState(false)
+    const [mostrarPopup, setMostrarPopup] = useState(false);
 
     const [listaChats, setListaChats] = useState([]);
 
@@ -29,17 +29,17 @@ export const ChatList = () => {
         miLista();
     }, [currentUser.id]);
 
-    const handleDelete = (id) => {
-        const nuevos = chatsList.filter(chat => chat.id !== id)
-        setChatsList(nuevos)
-        localStorage.setItem("chats", JSON.stringify(nuevos))
-        console.log(JSON.parse(localStorage.getItem("chats")))
-        setMostrarPopup(false)
-    }
-
     const handleOnChat = (chat) => {
         setChatActual(chat)
         navigate(`/chat-aviso?id=${chat.id}`)
+    }
+
+    const handleDeleteChat = async (id) => {
+        try{
+            await ArrendamientosService.deleteChat(id);
+        }catch(error){
+            console.log(error);
+        }
     }
 
 
@@ -64,7 +64,7 @@ export const ChatList = () => {
                                 button={
                                 <>
                                     <button className="btn btn-primary" onClick={() => setMostrarPopup(false)}>Cancelar</button>
-                                    <button className="btn btn-danger" onClick={() => {handleDelete(chat.id)}}>Eliminar</button>
+                                    <button className="btn btn-danger" onClick={() => {handleDeleteChat(chat.id)}}>Eliminar</button>
                                 </>
                                 }
                             />
