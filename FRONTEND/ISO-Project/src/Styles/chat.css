@@ -83,3 +83,7 @@
 .chat form button:hover {
     background-color: #0b5ed7;
 }
+
+.seen{
+    color: #34b9e5;
+}
