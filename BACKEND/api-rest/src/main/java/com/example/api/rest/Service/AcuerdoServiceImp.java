@@ -137,10 +137,10 @@ public class AcuerdoServiceImp implements IAcuerdoService {
 
     @Override
     public String calificarExperienciaPropiedad(AcuerdoModel acuerdoCalificacion) {
-        AcuerdoModel acuerdoEncontrado = buscarAcuerdoPorId(acuerdoCalificacion.getIdPropiedad());
+        AcuerdoModel acuerdoEncontrado = buscarAcuerdoPorId(acuerdoCalificacion.getId());
         PropiedadesModel propiedadEncontrada = buscarPropiedadAcuerdo(acuerdoCalificacion.getIdPropiedad());
 
-        UsuarioModel usuarioEncontradoCreador = buscarUsuario(acuerdoCalificacion.getIdUsuarioInteresado());
+        UsuarioModel usuarioEncontradoCreador = buscarUsuario(acuerdoEncontrado.getIdUsuarioInteresado());
         UsuarioModel usuarioEncontradoDestinatario = buscarUsuario(propiedadEncontrada.getIdUsuarioPropietario());
         for(int i = 0; i < acuerdoCalificacion.getCalificacionEspacio().size(); i++){
             acuerdoEncontrado.getCalificacionEspacio().add(acuerdoCalificacion.getCalificacionEspacio().get(i));
@@ -156,10 +156,10 @@ public class AcuerdoServiceImp implements IAcuerdoService {
 
     @Override
     public String calificarExperienciaArrendatario(AcuerdoModel acuerdoCalificacion) {
-        AcuerdoModel acuerdoEncontrado = buscarAcuerdoPorId(acuerdoCalificacion.getIdPropiedad());
+        AcuerdoModel acuerdoEncontrado = buscarAcuerdoPorId(acuerdoCalificacion.getId());
         PropiedadesModel propiedadEncontrada = buscarPropiedadAcuerdo(acuerdoCalificacion.getIdPropiedad());
 
-        UsuarioModel usuarioInteresado = buscarUsuario(acuerdoCalificacion.getIdUsuarioInteresado());
+        UsuarioModel usuarioInteresado = buscarUsuario(acuerdoEncontrado.getIdUsuarioInteresado());
         UsuarioModel usuarioPropietario = buscarUsuario(propiedadEncontrada.getIdUsuarioPropietario());
 
         for(int i = 0; i < acuerdoCalificacion.getCalificacionArrendatario().size(); i++){
