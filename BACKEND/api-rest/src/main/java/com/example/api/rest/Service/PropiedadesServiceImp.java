@@ -246,7 +246,9 @@ public class PropiedadesServiceImp implements IPropiedadesService {
             propiedadesRepositorio.save(publicacion);
             Date fechaRealizacion = new Date();
             NotificacionesModel notificacion = new NotificacionesModel(enumsNotificaciones.mensaje, fechaRealizacion, "ADMINISTRACION", desicion.getDesicion() , usuarioPropiedad.getUserName(), false);
+            NotificacionesModel notificacionParaCreadorReporte = new NotificacionesModel(enumsNotificaciones.mensaje, fechaRealizacion, "ADMINISTRACION", "Tu reporte a la propiedad: " + publicacion.getNombre() + ", fue valido", reporte.getNombreUsuarioReporte(), false);
             notificacionesRepositorio.save(notificacion);
+            notificacionesRepositorio.save(notificacionParaCreadorReporte);
             propiedadesRepositorio.save(publicacion);
             reportePublicacionRepositorio.delete(reporte);
         }else if(desicion.getValido() == false){
@@ -255,7 +257,9 @@ public class PropiedadesServiceImp implements IPropiedadesService {
             propiedadesRepositorio.save(publicacion);
             Date fechaRealizacion = new Date();
             NotificacionesModel notificacion = new NotificacionesModel(enumsNotificaciones.mensaje, fechaRealizacion, "ADMINISTRACION", desicion.getDesicion() , reporte.getNombreUsuarioReporte(), false);
+            NotificacionesModel notificacionParaCreadorReporte = new NotificacionesModel(enumsNotificaciones.mensaje, fechaRealizacion, "ADMINISTRACION", "Tu reporte a la propiedad: " + publicacion.getNombre() + ", fue invalido", reporte.getNombreUsuarioReporte(), false);
             notificacionesRepositorio.save(notificacion);
+            notificacionesRepositorio.save(notificacionParaCreadorReporte);
             reportePublicacionRepositorio.delete(reporte);
         }
     }
