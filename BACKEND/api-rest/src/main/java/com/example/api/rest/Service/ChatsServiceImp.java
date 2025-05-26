@@ -1,6 +1,7 @@
 package com.example.api.rest.Service;
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 import java.util.Optional;
 
@@ -10,8 +11,12 @@ import org.springframework.stereotype.Service;
 import com.example.api.rest.Excepciones.UsuarioSinMensajes;
 import com.example.api.rest.Model.ChatsModel;
 import com.example.api.rest.Model.Mensajes;
+import com.example.api.rest.Model.NotificacionesModel;
 import com.example.api.rest.Model.UsuarioModel;
+import com.example.api.rest.Model.ENUM.enumsNotificaciones;
+import com.example.api.rest.Model.ENUM.enumsUsuario;
 import com.example.api.rest.Repository.IChatsRepository;
+import com.example.api.rest.Repository.INotificacionesRepositorty;
 import com.example.api.rest.Repository.IUsuarioRepository;
 import org.bson.types.ObjectId;
 
@@ -19,6 +24,7 @@ import org.bson.types.ObjectId;
 public class ChatsServiceImp implements IChatsService{
     @Autowired IChatsRepository chatsRepositorio;
     @Autowired IUsuarioRepository usuarioRepositorio;
+    @Autowired INotificacionesRepositorty notificacionesRepositorio;
 
     @Override
     public UsuarioModel buscarUsuario(ObjectId idUsuarioPropietario) {
@@ -45,8 +51,21 @@ public class ChatsServiceImp implements IChatsService{
     @Override
     public void mensajes(ObjectId idUsuarioDestinatario, ChatsModel mensaje) {
         UsuarioModel usuarioEncontrado = buscarUsuario(idUsuarioDestinatario);
+        UsuarioModel usuarioEncontrado2 = buscarUsuarioPorNombre(mensaje.getParticipantes().get(0));
         mensaje.getParticipantes().add(usuarioEncontrado.getUserName());
         ChatsModel chatEncontrado = buscarChat(mensaje.getParticipantes());
+        Date fechaActual = new Date();
+        if(usuarioEncontrado2.getTipo() == enumsUsuario.interesado){
+            NotificacionesModel notificacionParaReceptor = new NotificacionesModel(enumsNotificaciones.mensaje, fechaActual, usuarioEncontrado2.getUserName(), "El usuario " + usuarioEncontrado2.getUserName() + ", te ha enviado un mensaje", usuarioEncontrado.getUserName(), false);
+            NotificacionesModel notificacionParaEnvia= new NotificacionesModel(enumsNotificaciones.mensaje, fechaActual, "Haz enviado un mensaje a: " + usuarioEncontrado.getUserName(), usuarioEncontrado2.getUserName(), false);
+            notificacionesRepositorio.save(notificacionParaReceptor);
+            notificacionesRepositorio.save(notificacionParaEnvia);
+        }else{
+            NotificacionesModel notificacionParaReceptor = new NotificacionesModel(enumsNotificaciones.mensaje, fechaActual, usuarioEncontrado.getUserName(), "El usuario " + usuarioEncontrado.getUserName() + ", te ha enviado un mensaje", usuarioEncontrado2.getUserName(), false);
+            NotificacionesModel notificacionParaEnvia= new NotificacionesModel(enumsNotificaciones.mensaje, fechaActual, "Haz enviado un mensaje a: " + usuarioEncontrado2.getUserName(), usuarioEncontrado.getUserName(), false);
+            notificacionesRepositorio.save(notificacionParaReceptor);
+            notificacionesRepositorio.save(notificacionParaEnvia);
+        }
         for(int i = 0; i < mensaje.getMensajes().size(); i++){
             chatEncontrado.getMensajes().add(mensaje.getMensajes().get(i));
         }
