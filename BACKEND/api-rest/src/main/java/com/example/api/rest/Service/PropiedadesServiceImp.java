@@ -230,14 +230,14 @@ public class PropiedadesServiceImp implements IPropiedadesService {
             propiedadEncontrada.setEstado(enumsEstadoPropiedad.activo);
             propiedadesRepositorio.save(propiedadEncontrada);
             Date fechaActual = new Date();
-            NotificacionesModel notificacion = new NotificacionesModel(enumsNotificaciones.aviso, fechaActual, "ADMINISTRACION", "La administracion ha rechazado la publicacion de tu aviso con nombre: " + propiedadEncontrada.getNombre(), usuarioPropietario.getUserName(), false);
+            NotificacionesModel notificacion = new NotificacionesModel(enumsNotificaciones.aviso, fechaActual, "ADMINISTRACION", "La administracion ha aprobado la publicacion de tu aviso con nombre: " + propiedadEncontrada.getNombre(), usuarioPropietario.getUserName(), false);
             notificacionesRepositorio.save(notificacion);
         }else{
             propiedadEncontrada.setVisible(false);
             propiedadEncontrada.setEstado(enumsEstadoPropiedad.desactivado);
             propiedadesRepositorio.save(propiedadEncontrada);
             Date fechaActual = new Date();
-            NotificacionesModel notificacion = new NotificacionesModel(enumsNotificaciones.aviso, fechaActual, "ADMINISTRACION", "La administracion ha aprobado la publicacion de tu aviso con nombre: " + propiedadEncontrada.getNombre(), usuarioPropietario.getUserName(), false);
+            NotificacionesModel notificacion = new NotificacionesModel(enumsNotificaciones.aviso, fechaActual, "ADMINISTRACION", "La administracion ha rechazado la publicacion de tu aviso con nombre: " + propiedadEncontrada.getNombre(), usuarioPropietario.getUserName(), false);
             notificacionesRepositorio.save(notificacion);
         }
         return propiedadEncontrada;
