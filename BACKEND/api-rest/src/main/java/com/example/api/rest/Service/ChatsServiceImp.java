@@ -14,7 +14,6 @@ import com.example.api.rest.Model.Mensajes;
 import com.example.api.rest.Model.NotificacionesModel;
 import com.example.api.rest.Model.UsuarioModel;
 import com.example.api.rest.Model.ENUM.enumsNotificaciones;
-import com.example.api.rest.Model.ENUM.enumsUsuario;
 import com.example.api.rest.Repository.IChatsRepository;
 import com.example.api.rest.Repository.INotificacionesRepositorty;
 import com.example.api.rest.Repository.IUsuarioRepository;
@@ -55,14 +54,14 @@ public class ChatsServiceImp implements IChatsService{
         mensaje.getParticipantes().add(usuarioEncontrado.getUserName());
         ChatsModel chatEncontrado = buscarChat(mensaje.getParticipantes());
         Date fechaActual = new Date();
-        if(usuarioEncontrado2.getTipo() == enumsUsuario.interesado){
-            NotificacionesModel notificacionParaReceptor = new NotificacionesModel(enumsNotificaciones.mensaje, fechaActual, usuarioEncontrado2.getUserName(), "El usuario " + usuarioEncontrado2.getUserName() + ", te ha enviado un mensaje", usuarioEncontrado.getUserName(), false);
-            NotificacionesModel notificacionParaEnvia= new NotificacionesModel(enumsNotificaciones.mensaje, fechaActual, "Haz enviado un mensaje a: " + usuarioEncontrado.getUserName(), usuarioEncontrado2.getUserName(), false);
+        if(chatEncontrado.getMensajes().size() % 2 == 0){
+            NotificacionesModel notificacionParaReceptor = new NotificacionesModel(enumsNotificaciones.mensaje, fechaActual, usuarioEncontrado.getUserName(), "El usuario " + usuarioEncontrado.getUserName() + ", te ha enviado un mensaje", usuarioEncontrado2.getUserName(), false);
+            NotificacionesModel notificacionParaEnvia= new NotificacionesModel(enumsNotificaciones.mensaje, fechaActual, "Haz enviado un mensaje a: " + usuarioEncontrado2.getUserName(), usuarioEncontrado.getUserName(), false);
             notificacionesRepositorio.save(notificacionParaReceptor);
             notificacionesRepositorio.save(notificacionParaEnvia);
         }else{
-            NotificacionesModel notificacionParaReceptor = new NotificacionesModel(enumsNotificaciones.mensaje, fechaActual, usuarioEncontrado.getUserName(), "El usuario " + usuarioEncontrado.getUserName() + ", te ha enviado un mensaje", usuarioEncontrado2.getUserName(), false);
-            NotificacionesModel notificacionParaEnvia= new NotificacionesModel(enumsNotificaciones.mensaje, fechaActual, "Haz enviado un mensaje a: " + usuarioEncontrado2.getUserName(), usuarioEncontrado.getUserName(), false);
+            NotificacionesModel notificacionParaReceptor = new NotificacionesModel(enumsNotificaciones.mensaje, fechaActual, usuarioEncontrado2.getUserName(), "El usuario " + usuarioEncontrado2.getUserName() + ", te ha enviado un mensaje", usuarioEncontrado.getUserName(), false);
+            NotificacionesModel notificacionParaEnvia= new NotificacionesModel(enumsNotificaciones.mensaje, fechaActual, "Haz enviado un mensaje a: " + usuarioEncontrado.getUserName(), usuarioEncontrado2.getUserName(), false);
             notificacionesRepositorio.save(notificacionParaReceptor);
             notificacionesRepositorio.save(notificacionParaEnvia);
         }
