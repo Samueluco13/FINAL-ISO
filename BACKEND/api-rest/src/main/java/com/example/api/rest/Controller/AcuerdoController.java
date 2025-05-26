@@ -36,4 +36,14 @@ public class AcuerdoController {
     public ResponseEntity<String> cancelarAcuerdo(@PathVariable ObjectId id, @RequestParam String razonCancelacion){
         return new ResponseEntity<String>(acuerdoService.cancelarAcuerdoPropiedad(id, razonCancelacion), HttpStatus.OK);
     }
+
+    @PutMapping("/CALIFICAR-ACUERDO-PROPIEDAD")
+    public ResponseEntity<String> calificarAcuerdoPropiedad(@RequestBody AcuerdoModel calificacion){
+        return new ResponseEntity<String>(acuerdoService.calificarExperienciaPropiedad(calificacion), HttpStatus.OK);
+    }
+
+    @PutMapping("/CALIFICAR-ACUERDO-ARRENDATARIO")
+    public ResponseEntity<String> calificarAcuerdoArrendatario(@RequestBody AcuerdoModel calificacion){
+        return new ResponseEntity<String>(acuerdoService.calificarExperienciaArrendatario(calificacion), HttpStatus.OK);
+    }
 }
