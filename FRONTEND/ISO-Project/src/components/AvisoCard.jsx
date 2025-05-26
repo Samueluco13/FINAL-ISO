@@ -8,7 +8,6 @@ const AvisoCard = ({ aviso, onDelete, onEdit, onReport, onClick, onViewReports }
       {aviso.disponibilidad === "procesando" && (
         <p className="aviso-status">En Revisión</p>
       )}
-      {/* <p>Propietario: {aviso.propietario}</p> */}
       <p>{aviso.descripcion}</p>
       <p>Precio: ${aviso.costo}/mes</p>
       <p>Disponibilidad: {aviso.disponibilidad}</p>

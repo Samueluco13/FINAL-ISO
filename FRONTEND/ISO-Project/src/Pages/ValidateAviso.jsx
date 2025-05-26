@@ -7,6 +7,7 @@ import "../styles/avisos.css";
 const ValidateAviso = () => {
   const navigate = useNavigate();
   const [validate, setValidate] = useState([]);
+  const [reload, setReload] = useState(false);
 
 
   useEffect(() => {
@@ -22,26 +23,18 @@ const ValidateAviso = () => {
       }
     }
     toValidate();
-  }, [validate])
+  }, [reload])
 
-  const handleValidate = async (id) => {
+  const handleValidate = async (id, visible) => {
     console.log(id)
     try{
-      const toValidate = await ArrendamientosService.validatePublication(id);
+      const toValidate = await ArrendamientosService.validatePublication(id, visible);
       console.log("El mas validado: ", toValidate.data);
+      setReload(!reload);
     }catch(error){
       console.log(error.response?.data || error.message);
     }
   };
-
-  // const handleEditPetition = (id) => {
-  //   navigate(`/solicitud-editar-aviso?id=${id}`)
-  // };
-
-  const handleDeactivate = (id) => {
-    navigate(`/desactivar-aviso?id=${id}`)
-  };
-
 
   return (
     <div className="dashboard">
@@ -57,16 +50,11 @@ const ValidateAviso = () => {
                 onClick={() => navigate(`/aviso/${aviso.nombre}`)}
               />
               <div className="aviso-actions">
-                <button className="btn btn-primary" onClick={() => handleValidate(aviso.id)}>
+                <button className="btn btn-primary" onClick={() => handleValidate(aviso.id, true)}>
                   Validar
                 </button>
-                {/* <div>
-                  <button className="btn btn-warning" onClick={() => handleEditPetition(aviso.id)}>
-                    Solicitar Edición
-                  </button>
-                </div> */}
                 <div>
-                  <button className="btn btn-danger" onClick={() => handleDeactivate(aviso.id)}>
+                  <button className="btn btn-danger" onClick={() => handleValidate(aviso.id, false)}>
                     Desactivar
                   </button>
                 </div>

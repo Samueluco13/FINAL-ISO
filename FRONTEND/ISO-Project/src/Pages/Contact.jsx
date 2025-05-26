@@ -14,14 +14,18 @@ const Contact = () => {
   const [mensaje, setMensaje] = useState("");
   const [submitCounter, setSubmitCounter] = useState(0);
   const [listaMensajes, setListaMensajes] = useState([]);
-  const [disabled, setDisabled] = useState(false);
+  console.log(avisoActual);
+  console.log(chatActual);
 
   useEffect(() => {
     const buscarAviso = () => {
-    const avisito = avisosDisponibles.find(aviso => aviso.nombre === chatActual.avisoNombre);
-    setAvisoActual(avisito)
+      const avisito = avisosDisponibles.find(aviso => aviso.nombre === chatActual.avisoNombre);
+      setAvisoActual(avisito);
     }
     buscarAviso()
+  }, [])
+
+  useEffect(() => {
 
     const listarMensajes = async () => {
       if(chatActual.participantes[0] === currentUser.userName){ //Cuando entra el interesado
@@ -73,7 +77,7 @@ const Contact = () => {
       }
     }
     mensajesEnVisto()
-  }, [currentUser, chatId, navigate, submitCounter]);
+  }, [currentUser, chatId, navigate, submitCounter, avisoActual]);
   
   const newMessage = {
     participantes: [chatActual.participantes[0]],

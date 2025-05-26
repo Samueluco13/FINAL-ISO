@@ -10,8 +10,9 @@ export const AvisoReports = () => {
     const [motivo, setMotivo] = useState("");
     const [deactivatePopup, setDeactivatePopup] = useState(false);
     const [keepPopup, setKeepPopup] = useState(false);
-    const [reasonPopup, setReasonPopup] = useState(false);
-    const [reposteDesicion, setReporteDesicion] = useState({});
+    const [reasonDeactivatePopup, setReasonDeactivatePopup] = useState(false);
+    const [reasonKeepPopup, setReasonKeepPopup] = useState(false);
+    const [reporteDesicion, setReporteDesicion] = useState({});
 
 
     useEffect(() => {
@@ -71,14 +72,17 @@ export const AvisoReports = () => {
                         className="btn btn-danger"
                         onClick={() => {
                             setReporteDesicion(reporte)
-                            setReasonPopup(true)
+                            setReasonDeactivatePopup(true)
                         }} //Para desactivar el aviso
                     >
                         Desactivar Aviso
                     </button>
                     <button
                         className="btn btn-primary"
-                        onClick={() => handleResolve(reporte.id, false)} //Para mantener el aviso
+                        onClick={() => {
+                            setReporteDesicion(reporte)
+                            setReasonKeepPopup(true)
+                        }} //Para mantener el aviso
                     >
                         Mantener Aviso
                     </button>
@@ -87,16 +91,38 @@ export const AvisoReports = () => {
                 ))}
             </div>
             )}
-            {reasonPopup && (
+            {reasonDeactivatePopup && (
                 <Popup
                 text="Ingresa el motivo de desactivación"
                 button={
                     <div>
-                        {console.log(reposteDesicion)}
-                        <button onClick={() => handleResolve(reposteDesicion.id, true)}>
+                        {console.log(reporteDesicion)}
+                        <button onClick={() => handleResolve(reporteDesicion.id, true)}>
                             Desactivar
                         </button>
-                        <button onClick={() => setReasonPopup(false)} >
+                        <button onClick={() => setReasonDeactivatePopup(false)} >
+                            Cancelar
+                        </button>
+                    </div>
+                }>
+                    <div className="form-group">
+                        <textarea
+                        value={motivo}
+                        onChange={(e) => setMotivo(e.target.value)}
+                        />
+                    </div>
+                </Popup>
+            )}
+            {reasonKeepPopup && (
+                <Popup
+                text="Ingresa el motivo de su desicion"
+                button={
+                    <div>
+                        {console.log(reporteDesicion)}
+                        <button onClick={() => handleResolve(reporteDesicion.id, false)}>
+                            Mantener
+                        </button>
+                        <button onClick={() => setReasonKeepPopup(false)} >
                             Cancelar
                         </button>
                     </div>

@@ -54,7 +54,7 @@ const AvisosPropios = () => {
       }
     }
     mostrarPropios()
-  }, [navigate, filters]);
+  }, [navigate, filters, reload]);
   console.log(avisosPropios);
 
 

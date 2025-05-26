@@ -90,9 +90,9 @@ export class ArrendamientosService {
         return axios.delete(`${backend}/ELIMINAR/PROPIEDAD/${nombrePublicacion}`);
     }
 
-    static validatePublication(idPublication){
-        return axios.put(`${backend}/PROPIEDAD-VISIBLE/${idPublication}`);
-    }
+    // static validatePublication(idPublication){
+    //     return axios.put(`${backend}/PROPIEDAD-VISIBLE/${idPublication}`);
+    // }
 
     static reportPublication(nombrePublication, jsonReport){
         return axios.post(`${backend}/REPORTAR/PROPIEDAD/${nombrePublication}`, jsonReport, {
@@ -140,6 +140,10 @@ export class ArrendamientosService {
 
     static showWaiting(){
         return axios.get(`${backend}/LISTAR-PROPIEDADES-ESPERA`);
+    }
+
+    static validatePublication(publicationId, visible){
+        return axios.put(`${backend}/PROPIEDAD-VISIBLE/${publicationId}/${visible}`);
     }
 
 
