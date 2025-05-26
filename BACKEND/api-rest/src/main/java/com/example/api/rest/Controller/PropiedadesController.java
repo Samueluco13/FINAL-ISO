@@ -80,9 +80,9 @@ public class PropiedadesController {
         return new ResponseEntity<List<PropiedadesModel>>(propiedadesService.ListarPropiedadesEnEspera(), HttpStatus.OK);
     }
 
-    @PutMapping("/PROPIEDAD-VISIBLE/{id}")
-    public ResponseEntity<PropiedadesModel> hacerPropiedadVisible(@PathVariable ObjectId id){
-        return new ResponseEntity<PropiedadesModel>(propiedadesService.hacerVisiblePropiedad(id), HttpStatus.OK);
+    @PutMapping("/PROPIEDAD-VISIBLE/{id}/{visible}")
+    public ResponseEntity<PropiedadesModel> hacerPropiedadVisible(@PathVariable ObjectId id, @PathVariable Boolean visible){
+        return new ResponseEntity<PropiedadesModel>(propiedadesService.hacerVisiblePropiedad(id, visible), HttpStatus.OK);
     }
 
     @PostMapping("/PROPIEDAD/{nombre}")

@@ -27,7 +27,7 @@ public interface IPropiedadesService {
     public List<PropiedadesModel> listarPropiedadesReportadas();
     public List<PropiedadesModel> listarPropiedades();
     public List<PropiedadesModel> ListarPropiedadesEnEspera();
-    public PropiedadesModel hacerVisiblePropiedad(ObjectId id);
+    public PropiedadesModel hacerVisiblePropiedad(ObjectId id, Boolean visible);
     public void validarReporte(ObjectId idReporte, ReportePublicacionModel desicion);
     public ReportePublicacionModel buscarReportePorId(ObjectId idReporte);
 }

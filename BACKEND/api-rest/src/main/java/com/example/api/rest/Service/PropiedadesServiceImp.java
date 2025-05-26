@@ -222,11 +222,24 @@ public class PropiedadesServiceImp implements IPropiedadesService {
     }
 
     @Override
-    public PropiedadesModel hacerVisiblePropiedad(ObjectId id) {
+    public PropiedadesModel hacerVisiblePropiedad(ObjectId id, Boolean visible) {
         PropiedadesModel propiedadEncontrada = buscarPropiedadPorId(id);
-        propiedadEncontrada.setVisible(true);
-        propiedadEncontrada.setEstado(enumsEstadoPropiedad.activo);
-        propiedadesRepositorio.save(propiedadEncontrada);
+        UsuarioModel usuarioPropietario = buscarUsuarioPorId(propiedadEncontrada.getIdUsuarioPropietario());
+        if(visible == true){
+            propiedadEncontrada.setVisible(true);
+            propiedadEncontrada.setEstado(enumsEstadoPropiedad.activo);
+            propiedadesRepositorio.save(propiedadEncontrada);
+            Date fechaActual = new Date();
+            NotificacionesModel notificacion = new NotificacionesModel(enumsNotificaciones.aviso, fechaActual, "ADMINISTRACION", "La administracion ha rechazado la publicacion de tu aviso con nombre: " + propiedadEncontrada.getNombre(), usuarioPropietario.getUserName(), false);
+            notificacionesRepositorio.save(notificacion);
+        }else{
+            propiedadEncontrada.setVisible(false);
+            propiedadEncontrada.setEstado(enumsEstadoPropiedad.desactivado);
+            propiedadesRepositorio.save(propiedadEncontrada);
+            Date fechaActual = new Date();
+            NotificacionesModel notificacion = new NotificacionesModel(enumsNotificaciones.aviso, fechaActual, "ADMINISTRACION", "La administracion ha aprobado la publicacion de tu aviso con nombre: " + propiedadEncontrada.getNombre(), usuarioPropietario.getUserName(), false);
+            notificacionesRepositorio.save(notificacion);
+        }
         return propiedadEncontrada;
     }
 
