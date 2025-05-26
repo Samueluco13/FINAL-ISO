@@ -8,10 +8,8 @@ import { ArrendamientosService } from "../services/ArrendamientoService.js";
 export const ChatList = () => {
     const {currentUser, chatActual, setChatActual} = useContext(AuthContext);
     const navigate = useNavigate();
-
-    const [chatsList, setChatsList] = useState(JSON.parse(localStorage.getItem("chats")) || []);
     const [mostrarPopup, setMostrarPopup] = useState(false);
-
+    const [reload, setReload] = useState(false);
     const [listaChats, setListaChats] = useState([]);
 
     useEffect(() => {
@@ -27,7 +25,7 @@ export const ChatList = () => {
             }
         }
         miLista();
-    }, [currentUser.id]);
+    }, [currentUser.id, reload]);
 
     const handleOnChat = (chat) => {
         setChatActual(chat)
@@ -37,6 +35,8 @@ export const ChatList = () => {
     const handleDeleteChat = async (id) => {
         try{
             await ArrendamientosService.deleteChat(id);
+            setReload(!reload);
+            setMostrarPopup(false)
         }catch(error){
             console.log(error);
         }
@@ -60,11 +60,11 @@ export const ChatList = () => {
                         />
                         {mostrarPopup && (
                             <Popup
-                                text={`¿Seguro que quieres eliminar el chat  del aviso ${chat.tituloAviso}?`}
+                                text={`¿Seguro que quieres eliminar el chat  del aviso ${chat.avisoNombre}?`}
                                 button={
                                 <>
                                     <button className="btn btn-primary" onClick={() => setMostrarPopup(false)}>Cancelar</button>
-                                    <button className="btn btn-danger" onClick={() => {handleDeleteChat(chat.id)}}>Eliminar</button>
+                                    <button className="btn btn-danger" onClick={() => handleDeleteChat(chat.id)}>Eliminar</button>
                                 </>
                                 }
                             />
