@@ -14,6 +14,7 @@ const Contact = () => {
   const [mensaje, setMensaje] = useState("");
   const [submitCounter, setSubmitCounter] = useState(0);
   const [listaMensajes, setListaMensajes] = useState([]);
+  const [disabled, setDisabled] = useState(false);
 
   useEffect(() => {
     const buscarAviso = () => {
@@ -113,8 +114,15 @@ const Contact = () => {
   }
 
   console.log(listaMensajes)
+  // let userLastMessage = listaMensajes[listaMensajes.length - 1]?.nombreUsuario
   
-  if (!avisoActual) return null;
+  // if (!avisoActual) return null;
+
+  // if(userLastMessage === currentUser.userName){
+  //   setDisabled(true);
+  // }else{
+  //   setDisabled(false);
+  // }
 
   return (
     <div className="chat">
@@ -145,6 +153,7 @@ const Contact = () => {
           value={mensaje}
           onChange={(e) => setMensaje(e.target.value)}
           placeholder="Escribe un mensaje..."
+          disabled={listaMensajes[listaMensajes.length - 1]?.nombreUsuario === currentUser.userName ? (true) : (false)}
         />
         <button className="btn btn-primary" type="submit">Enviar</button>
       </form>

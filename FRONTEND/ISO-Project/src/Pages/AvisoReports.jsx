@@ -31,17 +31,12 @@ export const AvisoReports = () => {
 
 
     const handleResolve = async (reporteId, valido) => {
-
-    const laDesicion = {
-        valido,
-        desicion: motivo
-    }
-
-    console.log("Esto se va a mandar -- ", laDesicion)
-
-    console.log("Debes ser el mismo: ", reporteId)
-
-
+        const laDesicion = {
+            valido,
+            desicion: motivo
+        }
+        console.log("Esto se va a mandar -- ", laDesicion);
+        console.log("Debes ser el mismo: ", reporteId);
         try{
             const resolucion = await ArrendamientosService.resolveReport(reporteId, laDesicion);
             console.log("Respuesta: ", resolucion);
